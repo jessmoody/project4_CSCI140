@@ -3,7 +3,7 @@
 
 using namespace std;
 
-// Validate a credit card number
+// A function that validate a credit card number
 // Parameter: long
 // Return type: bool
 bool validate(long long n)
