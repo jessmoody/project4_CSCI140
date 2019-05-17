@@ -24,11 +24,11 @@ int main()
 	}
 	else
 	{
-		while (!infile.eof())
+		while (infile >> model)
 		{
 			//cout << "File accessed" << endl;
 
-			infile >> model >> numMachines;
+			infile >> numMachines;
 
 			cout << "Model: " << model << endl << "Number of machines: " << numMachines << endl;
 
