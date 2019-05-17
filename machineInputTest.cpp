@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
 	ifstream infile;	      // Input file to read values into array
-	infile.open("C:\\Users\\csci.INSTRUCTION\\source\\repos\\Project1\\Debug\\testMachineA.txt", ios::in);
+	infile.open("C:\\Users\\jessm\\Documents\\GitHub\\project4_CSCI140\\testMachineA.txt", ios::in);
 
 	string model;
 	int numMachines;
