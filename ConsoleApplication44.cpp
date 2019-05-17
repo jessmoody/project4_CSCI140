@@ -66,8 +66,8 @@ public:
 	}
 	void display() const
 	{
-		for (int i = 0; i << 23; i++)
-			cout << inventory[i].id << inventory[i].quantity << inventory[i].price. << inventory.menu << endl;
+		for (int i = 0; i <23; i++)
+			cout << inventory[i].id << inventory[i].quantity << inventory[i].price << inventory[i].menu << endl;
 	}
 };
 
@@ -83,7 +83,8 @@ int main()
 	}
 	else
 	{
-		Inventory products[NUMOFPROD];
+		Inventory products;
+		//Inventory products[NUMOFPROD];
 
 		int pos = 0;                   // loop counter
 		int id;                    // variable holding the id number
@@ -94,13 +95,16 @@ int main()
 		{
 			infile >> id >> q >> price;
 			getline(infile, name);
-			products[pos].setId(id);
-			products[pos].setAmount(q);
-			products[pos].setPrice(price);
-			products[pos].setName(name);
+			products.setId(id);
+			products.setAmount(q);
+			products.setPrice(price);
+			products.setName(name);
 			pos++;
 		}
-		display();
+		
+		//products[NUMOFPROD].display();
+		products.display();
+
 
 	}
 	infile.close();
