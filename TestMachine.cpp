@@ -13,22 +13,33 @@ class MachineInput
 	int numMachines;
 	struct Coins
 	{
+		int quarters;
 		int dimes;
 		int nickels;
 	};
+	Coins inputCoin;
 	int numItems;
 	struct OneItem
 	{
 		string selection;
 		int itemID, quantity;
 	};
+	OneItem items;
 
 public:
-	void setModel(string m);
-	void setNumMachines(int nm);
-	void setCoins(Coins c);
-	void setNumItems(int ni);
-	void setItem(OneItem item);
+	void setModel(string m) {	model = m;	}
+	void setNumMachines(int nm) { numMachines = nm; }
+	void setCoins(Coins c) 
+	{ 
+		inputCoin.quarters = c.quarters;
+		inputCoin.dimes c.dimes;
+		c.nickels = inputCoin.nickels; 
+	}
+	void setNumItems(int ni) { numItems = ni; }
+	void setItem(OneItem item)
+	{
+		item
+	}
 
 
 };
