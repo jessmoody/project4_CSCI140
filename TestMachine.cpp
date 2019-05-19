@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const int arrSize = 8;
+const int ARR_SIZE = 8;
 
 class MachineInput
 {
@@ -24,21 +24,25 @@ class MachineInput
 		string selection;
 		int itemID, quantity;
 	};
-	OneItem items;
+	OneItem items[ARR_SIZE];
 
 public:
+	MachineInput(string m, int nm, Coins c, int ni, OneItem item[]):
+		model(m), numMachines(nm), inputCoin(c), numItems(ni), items() {}
 	void setModel(string m) {	model = m;	}
 	void setNumMachines(int nm) { numMachines = nm; }
 	void setCoins(Coins c) 
 	{ 
 		inputCoin.quarters = c.quarters;
-		inputCoin.dimes c.dimes;
-		c.nickels = inputCoin.nickels; 
+		inputCoin.dimes = c.dimes;
+		inputCoin.nickels = c.nickels;
 	}
 	void setNumItems(int ni) { numItems = ni; }
-	void setItem(OneItem item)
+	void setItem(OneItem i, int n)
 	{
-		item
+		items[n].selection = i.selection;
+		items[n].itemID = i.itemID;
+		items[n].quantity = i.quantity;
 	}
 
 
@@ -63,9 +67,9 @@ protected:
 		int itemID, quantity;
 	};
 
-	MachineInput allMachines[arrSize];
+	MachineInput allMachines[ARR_SIZE];
 	ifstream infile;
-	OneItem items[arrSize];
+	OneItem items[ARR_SIZE];
 
 
 public:
@@ -89,8 +93,6 @@ void TestMachines::machineInput()
 
 	while (infile >> model)
 	{
-		
-
 		infile >> numMachines;
 
 		cout << "Model: " << model << endl << "Number of machines: " << numMachines << endl;
