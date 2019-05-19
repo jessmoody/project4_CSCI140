@@ -51,39 +51,24 @@ public:
 
 class TestMachines
 {
-protected:
-	string model;
-	int numMachines;
-	struct Coins
-	{
-		int q;
-		int d;
-		int n;
-	};
-	int numItems;
-	struct OneItem
-	{
-		string selection;
-		int itemID, quantity;
-	};
 
-	MachineInput allMachines[ARR_SIZE];
+	MachineInput allMachines;
 	ifstream infile;
-	OneItem items[ARR_SIZE];
 
 
 public:
-	TestMachines()
+	TestMachines(string model, int numMachines, Coins inputCoin, int numItems, OneItem items[]): // 
+		allMachines(model, numMachines, inputCoin, numItems, items)
 	{
 		cout << "TestMachines constructor running" << endl;
 	}
-	void machineInput();
+	void machineInput(string model, int numMachines, Coins inputCoin, int numItems, OneItem items[]);
 
 
 };
 
 
-void TestMachines::machineInput()
+void TestMachines::machineInput(string model, int numMachines, Coins inputCoin, int numItems, OneItem items[])
 {
 	infile.open("C:\\Users\\jessm\\Documents\\GitHub\\project4_CSCI140\\machines.txt", ios::in);
 
