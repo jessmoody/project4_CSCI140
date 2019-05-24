@@ -7,32 +7,48 @@
 
 using namespace std;
 
+const int SIZE = 8;
+
 class Machine
 {
 protected:
 	string model;
-	int amountEntered;
-	struct Coin
+	int numMachines;
+	struct Coins
 	{
 		int quarters;
 		int dimes;
 		int nickels;
 	};
-	
-	// will add more variables as needed
+	Coins inputCoin;
+	int numItems;
+	struct OneItem
+	{
+		string selection;
+		int itemID, quantity;
+	};
+	OneItem items[SIZE];
 
 public:
 	Machine();
-	void setModel(string m);
-	// These are just my functions from Project 1 - some are modified
-	double calculateBalance(int totalCents);
-	bool validation(string userInput);
-	void print();
-	void printInstructions(double balance);
-	void printFinalReport(double balance, int totalCents);
-	// functions added for Project 4
-	int calculateTotalCents(Coin c);	// add up quarters, dimes and nickels
-	void getInventory();		// not actually void
+	void setModel(string m)
+	{
+		model = m;
+	}
+	string getModel()
+	{
+		return model;
+	}
+	
+	//// These are just my functions from Project 1 - some are modified
+	//double calculateBalance(int totalCents);
+	//bool validation(string userInput);
+	//void print();
+	//void printInstructions(double balance);
+	//void printFinalReport(double balance, int totalCents);
+	//// functions added for Project 4
+	//int calculateTotalCents(Coin c);	// add up quarters, dimes and nickels
+	//void getInventory();		// not actually void
 };
 
 class MachineA : public Machine
@@ -47,8 +63,8 @@ private:
 
 public:
 	MachineA();
-	bool makeChange(int amount, Coin &machine, Coin &back);
-	double calculateBalance(int totalCents, Coin c);
+	//bool makeChange(int amount, Coin &machine, Coin &back);
+	//double calculateBalance(int totalCents, Coin c);
 	
 };
 
@@ -63,8 +79,8 @@ private:
 	};
 public:
 	MachineB();
-	bool makeChange(int amount, Coin &machine, Coin &back);
-	double calculateBalance(int totalCents);
+	//bool makeChange(int amount, Coin &machine, Coin &back);
+	//double calculateBalance(int totalCents);
 	
 };
 
@@ -74,7 +90,23 @@ private:
 	string cardEntered;
 public:
 	MachineC();
-	double calculateBalance(int totalCents);
-	bool validateCreditCard(string n);
+	//double calculateBalance(int totalCents);
+	//bool validateCreditCard(string n);
 	
+};
+
+class MachineSystem
+{
+protected:
+	Machine * pM[SIZE];
+
+public:
+		MachineSystem()		
+	{
+		readFile();
+	}
+	//~MachineSystem() { delete[] pM; }
+	void setNewObject(Machine m, int index);
+	void readFile();
+
 };
