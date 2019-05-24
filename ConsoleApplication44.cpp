@@ -36,38 +36,38 @@ class Inventory
 private:
 	Items inventory[NUMOFPROD];
 public:
-	void setId(int code)
+	void setInventory(int code, int q, int price, string name)
 	{
 		for (int i = 0; i < NUMOFPROD; i++)
 		{
 			inventory[i].id = code;
-		}
-	}
-	void setAmount(int q)
-	{
-		for (int i = 0; i < NUMOFPROD; i++)
-		{
 			inventory[i].quantity = q;
-		}
-	}
-	void setPrice(int price)
-	{
-		for (int i = 0; i < NUMOFPROD; i++)
-		{
 			inventory[i].price = price;
-		}
-	}
-	void setName(string name)
-	{
-		for (int i = 0; i < NUMOFPROD; i++)
-		{
 			inventory[i].menu = name;
 		}
 	}
+	int getId(int position)
+	{
+		return inventory[position].id;
+	}
+	int getQuantity(int position)
+	{
+		return inventory[position].quantity;
+	}
+	int getPrice(int position)
+	{
+		return inventory[position].price;
+	}
+	int getMenu(int position)
+	{
+		return inventory[position].menu;
+	}
 	void display() const
 	{
-		for (int i = 0; i <23; i++)
-			cout << inventory[i].id << inventory[i].quantity << inventory[i].price << inventory[i].menu << endl;
+		for (int i = 0; i < 23; i++)
+		{
+			cout << getId(i) << getQuantity(i) << getPrice(i) << getMenu(i) << endl;
+		}
 	}
 };
 
@@ -95,10 +95,7 @@ int main()
 		{
 			infile >> id >> q >> price;
 			getline(infile, name);
-			products.setId(id);
-			products.setAmount(q);
-			products.setPrice(price);
-			products.setName(name);
+			products.setInventory(id,q,price,name);
 			pos++;
 		}
 		
