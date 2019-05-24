@@ -39,7 +39,21 @@ public:
 	{
 		return model;
 	}
-	
+	void setNumMachines(int nm) { numMachines = nm; }
+	void setCoins(int q, int d, int n)
+	{
+		inputCoin.quarters = q;
+		inputCoin.dimes = d;
+		inputCoin.nickels = n;
+	}
+	void setNumItems(int ni) { numItems = ni; }
+	void setItem(string s, int id, int q, int n)
+	{
+		items[n].selection = s;
+		items[n].itemID = id;
+		items[n].quantity = q;
+	}
+
 	//// These are just my functions from Project 1 - some are modified
 	//double calculateBalance(int totalCents);
 	//bool validation(string userInput);
@@ -101,12 +115,10 @@ protected:
 	Machine * pM[SIZE];
 
 public:
-		MachineSystem()		
+	MachineSystem()		
 	{
 		readFile();
 	}
-	//~MachineSystem() { delete[] pM; }
 	void setNewObject(Machine m, int index);
 	void readFile();
-
 };
