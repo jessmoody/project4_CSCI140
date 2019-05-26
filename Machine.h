@@ -12,7 +12,7 @@ class Machine
 {
 protected:
 	string model;
-	int numMachines;
+	//int numMachines;
 	struct Coins
 	{
 		int quarters;
@@ -32,7 +32,7 @@ public:
 	Machine() 
 	{ 
 		model = "0";
-		numMachines = 0;
+		//numMachines = 0;
 		inputCoin.quarters = 0;
 		inputCoin.dimes = 0;
 		inputCoin.nickels = 0;
@@ -52,7 +52,7 @@ public:
 	{
 		return model;
 	}
-	void setNumMachines(int nm) { numMachines = nm; }
+	//void setNumMachines(int nm) { numMachines = nm; }
 	void setCoins(int q, int d, int n)
 	{
 		inputCoin.quarters = q;
@@ -66,13 +66,13 @@ public:
 		items[n].itemID = id;
 		items[n].quantity = q;
 	}
-	int getNumMachines() { return numMachines; }
+	//int getNumMachines() { return numMachines; }
 	int getNumItems() { return numItems; }
 	int getQuarters()
 	{
 		return inputCoin.quarters;
 	}
-	void printMachine()
+	virtual void printMachine()
 	{
 		cout << "Machine Model: " << model << endl;
 		cout << "Quarters: " << inputCoin.quarters << endl;
@@ -110,7 +110,7 @@ private:
 	};
 
 public:
-	MachineA();
+	MachineA() { ; }
 	//bool makeChange(int amount, Coin &machine, Coin &back);
 	//double calculateBalance(int totalCents, Coin c);
 	
@@ -126,7 +126,7 @@ private:
 		int nickels;
 	};
 public:
-	MachineB();
+	MachineB() { ; }
 	//bool makeChange(int amount, Coin &machine, Coin &back);
 	//double calculateBalance(int totalCents);
 	
@@ -137,26 +137,42 @@ class MachineC : public Machine
 private:
 	string cardEntered;
 public:
-	MachineC();
+	MachineC() 
+	{ 
+		cout << "MachineC created" << endl; 
+	}
 	//double calculateBalance(int totalCents);
 	//bool validateCreditCard(string n);
-	
+	virtual void printMachine() override
+	{
+		cout << "Machine Model: " << model << endl;
+		cout << "No coins.  This machine takes credit cards only" << endl;
+		cout << "Number of items: " << numItems << endl << endl;
+		cout << "Items: " << endl;
+		for (int i = 0; i < numItems; i++)
+		{
+			cout << "Selection: " << items[i].selection << endl
+				<< "Item ID: " << items[i].itemID << endl
+				<< "Quantity: " << items[i].quantity << endl << endl;
+		}
+	}
 };
 
 class MachineSystem
 {
 protected:
-	Machine * pM[SIZE];
+	MachineA *a;
+	MachineB *b;
+	MachineC *c;
+	Machine *defaultMachine;
+	Machine * pM[SIZE] = { a, a, b, c, c, defaultMachine };
 	int totalMachines;
 
 public:
-	MachineSystem()
-	{
-		//readFile();
-	}
+	MachineSystem() { ; }
 	void setNewObject(Machine &m, int index);
-	void readFile(Machine arr[]);
-	void printAllMachines()
+	void readFile(Machine *arr[]);
+	virtual void printAllMachines()
 	{
 		for (int i = 0; i < totalMachines; i++)
 		{
@@ -171,6 +187,15 @@ public:
 	{
 		return totalMachines;
 	}
+
+	void setPtr(Machine *arr[], int n)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			pM[i] = arr[i];
+		}
+	}
+
 
 	void setArray(Machine arr[], int n)
 	{

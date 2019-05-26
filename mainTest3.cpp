@@ -11,11 +11,14 @@ int main()
 
 	MachineSystem m;
 
-	Machine one;
+	Machine defaultMachine;
+	MachineA a;
+	MachineB b;
+	MachineC c;
 
 	cout << "MachineSystem object created." << endl;
 
-	Machine mach[SIZE] = { one };
+	Machine mach[SIZE] = { a, a, b, c, c, defaultMachine };
 	m.readFile(mach);
 
 	for (int i = 0; i < m.getTotalMachines(); i++)
