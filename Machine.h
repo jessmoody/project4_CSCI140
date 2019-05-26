@@ -1,7 +1,6 @@
 //outline of a potential class structure
 
 #pragma once
-
 #include <iostream>
 #include <string>
 
@@ -30,7 +29,21 @@ protected:
 	OneItem items[SIZE];
 
 public:
-	Machine();
+	Machine() 
+	{ 
+		model = "0";
+		numMachines = 0;
+		inputCoin.quarters = 0;
+		inputCoin.dimes = 0;
+		inputCoin.nickels = 0;
+		numItems = 0;
+		for (int i = 0; i < SIZE; i++)
+		{
+			items[i].itemID = 0;
+			items[i].quantity = 0;
+			items[i].selection = "0";
+		}
+	}
 	void setModel(string m)
 	{
 		model = m;
@@ -52,6 +65,27 @@ public:
 		items[n].selection = s;
 		items[n].itemID = id;
 		items[n].quantity = q;
+	}
+	int getNumMachines() { return numMachines; }
+	int getNumItems() { return numItems; }
+	int getQuarters()
+	{
+		return inputCoin.quarters;
+	}
+	void printMachine()
+	{
+		cout << "Machine Model: " << model << endl;
+		cout << "Quarters: " << inputCoin.quarters << endl;
+		cout << "Dimes: " << inputCoin.dimes << endl;
+		cout << "Nickels: " << inputCoin.nickels << endl;
+		cout << "Number of items: " << numItems << endl << endl;
+		cout << "Items: " << endl;
+		for (int i = 0; i < numItems; i++)
+		{
+			cout << "Selection: " << items[i].selection << endl
+				<< "Item ID: " << items[i].itemID << endl
+				<< "Quantity: " << items[i].quantity << endl << endl;
+		}
 	}
 
 	//// These are just my functions from Project 1 - some are modified
@@ -113,12 +147,36 @@ class MachineSystem
 {
 protected:
 	Machine * pM[SIZE];
+	int totalMachines;
 
 public:
-	MachineSystem()		
+	MachineSystem()
 	{
-		readFile();
+		//readFile();
 	}
-	void setNewObject(Machine m, int index);
-	void readFile();
+	void setNewObject(Machine &m, int index);
+	void readFile(Machine arr[]);
+	void printAllMachines()
+	{
+		for (int i = 0; i < totalMachines; i++)
+		{
+			pM[i]->printMachine();
+		}
+	}
+	void setTotalMachines(int n)
+	{
+		totalMachines = n;
+	}
+	int getTotalMachines()
+	{
+		return totalMachines;
+	}
+
+	void setArray(Machine arr[], int n)
+	{
+		for (int i = 0; i < n; i++)
+		{
+			pM[i] = &arr[i];
+		}
+	}
 };

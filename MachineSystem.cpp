@@ -5,16 +5,16 @@
 
 using namespace std;
 
-void MachineSystem::setNewObject(Machine m, int index) // add object to array
+void MachineSystem::setNewObject(Machine &m, int index) // add object to array
 {
 	pM[index] = &m;
 	cout << m.getModel() << endl;
 }
 
-void MachineSystem::readFile()
+void MachineSystem::readFile(Machine arr[])
 {
 	ifstream infile;	      // Input file to read values into array
-	infile.open("D:\\CSCI140\\Project 4\\Visual Studio Solution\\Project4\\Debug\\machines.txt", ios::in);
+	infile.open("C:\\Users\\jessm\\Documents\\GitHub\\project4_CSCI140\\machines.txt", ios::in);
 
 	string model;
 	int numMachines;
@@ -31,23 +31,32 @@ void MachineSystem::readFile()
 	{
 		while (infile >> model)
 		{
-			Machine m;
-			//cout << "File accessed" << endl;
-			m.setModel(model);
+
+			cout << "File accessed" << endl;
+
 			infile >> numMachines;
 
-			cout << "Model: " << model << endl << "Number of machines: " << numMachines << endl;
+			//cout << "Model: " << model << endl << "Number of machines: " << numMachines << endl;
 
 			for (int i = 0; i < numMachines; i++)
 			{
-				//create machine
+				cout << model << endl;
+				//mPtr[count]->setModel(model);
+				arr[count].setModel(model);
 				infile >> quarters >> dimes >> nickels;
 				infile >> numItems;
 
-				cout << "Quarters: " << quarters << endl;
-				cout << "Dimes: " << dimes << endl;
-				cout << "Nickels: " << nickels << endl;
-				cout << endl;
+				//mPtr[count]->setCoins(quarters, dimes, nickels);
+				arr[count].setCoins(quarters, dimes, nickels);
+
+				//cout << "Quarters: " << arr[count].getQuarters() << endl;
+				//cout << "Dimes: " << dimes << endl;
+				//cout << "Nickels: " << nickels << endl;
+				//cout << endl;
+
+
+				//mPtr[count]->setNumItems(numItems);
+				arr[count].setNumItems(numItems);
 
 				for (int i = 0; i < numItems; i++)
 				{
@@ -55,18 +64,33 @@ void MachineSystem::readFile()
 
 					infile >> selection >> itemID >> quantity;
 
-					cout << "Selection: " << selection << endl;
-					cout << "Item ID: " << itemID << endl;
-					cout << "Quantity: " << quantity << endl << endl;
+					//cout << "Selection: " << selection << endl;
+					//cout << "Item ID: " << itemID << endl;
+					//cout << "Quantity: " << quantity << endl << endl;
+
+					//mPtr[count]->setItem(selection, itemID, quantity, i);
+					arr[count].setItem(selection, itemID, quantity, i);
 				}
-				setNewObject(m, count);
+				cout << "End of machine" << endl;
+				//setNewObject(m, count);
+				//arr[count].printMachine();
+				cout << "Count: " << count << endl;
+
 				count++;
+
+
 			}
 
-
+			if (!infile)
+			{
+				cout << "End of file." << endl;
+			}
 		}
 
 	}
+	//m.setPtr(mPtr, count);
+	setArray(arr, count);
+	setTotalMachines(count);
 
 	infile.close();
 }
