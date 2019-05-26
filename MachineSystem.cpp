@@ -11,9 +11,9 @@ void MachineSystem::setNewObject(Machine &m, int index) // add object to array
 	cout << m.getModel() << endl;
 }
 
-void MachineSystem::readFile(Machine arr[])
+void MachineSystem::readFile(Machine *mPtr[])
 {
-	ifstream infile;	      
+	ifstream infile;
 
 	// filename based on computer used
 	infile.open("C:\\Users\\jessm\\Documents\\GitHub\\project4_CSCI140\\machines.txt", ios::in);
@@ -21,7 +21,7 @@ void MachineSystem::readFile(Machine arr[])
 	string model;
 	int numMachines;
 	int quarters, dimes, nickels;
-	int numItems, itemID, quantity;	
+	int numItems, itemID, quantity;
 	string selection;
 	int count = 0;
 
@@ -32,37 +32,63 @@ void MachineSystem::readFile(Machine arr[])
 	else
 	{
 		cout << "File accessed" << endl;
-
 		while (infile >> model)
 		{
+
 			infile >> numMachines;
+
+			cout << "Model: " << model << endl << "Number of machines: " << numMachines << endl;
 
 			for (int i = 0; i < numMachines; i++)
 			{
 				cout << model << endl;
-				arr[count].setModel(model);
+				mPtr[count]->setModel(model);
 				infile >> quarters >> dimes >> nickels;
 				infile >> numItems;
 
-				arr[count].setCoins(quarters, dimes, nickels);
-				arr[count].setNumItems(numItems);
+				mPtr[count]->setCoins(quarters, dimes, nickels);
+
+				//cout << "Quarters: " << mPtr[count]->getQuarters() << endl;
+				//cout << "Dimes: " << dimes << endl;
+				//cout << "Nickels: " << nickels << endl;
+				cout << endl;
+
+
+				mPtr[count]->setNumItems(numItems);
 
 				for (int i = 0; i < numItems; i++)
 				{
+					// create item object or struct
+
 					infile >> selection >> itemID >> quantity;
 
-					arr[count].setItem(selection, itemID, quantity, i);
+					//cout << "Selection: " << selection << endl;
+					//cout << "Item ID: " << itemID << endl;
+					//cout << "Quantity: " << quantity << endl << endl;
+
+					mPtr[count]->setItem(selection, itemID, quantity, i);
 				}
-				
 				cout << "End of machine" << endl;
+				//setNewObject(m, count);
+
+				//cout << "Count: " << count << endl;
+
 				count++;
+
+
+			}
+
+			if (!infile)
+			{
+				cout << "End of file." << endl;
 			}
 		}
-
 	}
-	
-	setArray(arr, count);
+
+	setPtr(mPtr, count);
 	setTotalMachines(count);
 
 	infile.close();
 }
+
+
