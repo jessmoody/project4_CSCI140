@@ -30,6 +30,11 @@ private:
 	Items InventoryList[NUMOFPROD];
 
 public:
+	// Constructor
+	Inventory()
+	{
+		loadData();
+	}
 	// Load the dada in "products.txt" and set up the InventoryList
 	void loadData();
 	
