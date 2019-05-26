@@ -29,29 +29,9 @@ protected:
 	OneItem items[SIZE];
 
 public:
-	Machine() 
-	{ 
-		model = "0";
-		//numMachines = 0;
-		inputCoin.quarters = 0;
-		inputCoin.dimes = 0;
-		inputCoin.nickels = 0;
-		numItems = 0;
-		for (int i = 0; i < SIZE; i++)
-		{
-			items[i].itemID = 0;
-			items[i].quantity = 0;
-			items[i].selection = "0";
-		}
-	}
-	void setModel(string m)
-	{
-		model = m;
-	}
-	string getModel()
-	{
-		return model;
-	}
+	Machine();
+	void setModel(string m){ model = m; }
+	
 	//void setNumMachines(int nm) { numMachines = nm; }
 	void setCoins(int q, int d, int n)
 	{
@@ -66,70 +46,31 @@ public:
 		items[n].itemID = id;
 		items[n].quantity = q;
 	}
+	string getModel() { return model; }
 	//int getNumMachines() { return numMachines; }
 	int getNumItems() { return numItems; }
 	int getQuarters()
 	{
 		return inputCoin.quarters;
 	}
-	virtual void printMachine()
-	{
-		cout << "Machine Model: " << model << endl;
-		cout << "Quarters: " << inputCoin.quarters << endl;
-		cout << "Dimes: " << inputCoin.dimes << endl;
-		cout << "Nickels: " << inputCoin.nickels << endl;
-		cout << "Number of items: " << numItems << endl << endl;
-		cout << "Items: " << endl;
-		for (int i = 0; i < numItems; i++)
-		{
-			cout << "Selection: " << items[i].selection << endl
-				<< "Item ID: " << items[i].itemID << endl
-				<< "Quantity: " << items[i].quantity << endl << endl;
-		}
-	}
+	virtual void printMachine();
 
-	//// These are just my functions from Project 1 - some are modified
-	//double calculateBalance(int totalCents);
-	//bool validation(string userInput);
-	//void print();
-	//void printInstructions(double balance);
-	//void printFinalReport(double balance, int totalCents);
-	//// functions added for Project 4
-	//int calculateTotalCents(Coin c);	// add up quarters, dimes and nickels
-	//void getInventory();		// not actually void
 };
 
 class MachineA : public Machine
 {
 private:
-	struct Coin
-	{
-		int quarters;
-		int dimes;
-		int nickels;
-	};
 
 public:
-	MachineA() { ; }
-	//bool makeChange(int amount, Coin &machine, Coin &back);
-	//double calculateBalance(int totalCents, Coin c);
-	
+	MachineA() { ; }	
 };
 
 class MachineB : public Machine
 {
 private:
-	struct Coin
-	{
-		int quarters;
-		int dimes;
-		int nickels;
-	};
+
 public:
-	MachineB() { ; }
-	//bool makeChange(int amount, Coin &machine, Coin &back);
-	//double calculateBalance(int totalCents);
-	
+	MachineB() { ; }	
 };
 
 class MachineC : public Machine
@@ -137,25 +78,8 @@ class MachineC : public Machine
 private:
 	string cardEntered;
 public:
-	MachineC() 
-	{ 
-		cout << "MachineC created" << endl; 
-	}
-	//double calculateBalance(int totalCents);
-	//bool validateCreditCard(string n);
-	virtual void printMachine() override
-	{
-		cout << "Machine Model: " << model << endl;
-		cout << "No coins.  This machine takes credit cards only" << endl;
-		cout << "Number of items: " << numItems << endl << endl;
-		cout << "Items: " << endl;
-		for (int i = 0; i < numItems; i++)
-		{
-			cout << "Selection: " << items[i].selection << endl
-				<< "Item ID: " << items[i].itemID << endl
-				<< "Quantity: " << items[i].quantity << endl << endl;
-		}
-	}
+	MachineC() { ; }
+	virtual void printMachine() override;
 };
 
 class MachineSystem
@@ -178,15 +102,8 @@ public:
 			pM[i]->printMachine();
 		}
 	}
-	void setTotalMachines(int n)
-	{
-		totalMachines = n;
-	}
-	int getTotalMachines()
-	{
-		return totalMachines;
-	}
-
+	void setTotalMachines(int n)	{ totalMachines = n; }
+	int getTotalMachines() { return totalMachines; }
 	void setPtr(Machine *arr[], int n)
 	{
 		for (int i = 0; i < n; i++)
@@ -195,12 +112,4 @@ public:
 		}
 	}
 
-
-	void setArray(Machine arr[], int n)
-	{
-		for (int i = 0; i < n; i++)
-		{
-			pM[i] = &arr[i];
-		}
-	}
 };
