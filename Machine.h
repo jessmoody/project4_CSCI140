@@ -161,11 +161,10 @@ public:
 class MachineSystem
 {
 protected:
-	MachineA *a;
-	MachineB *b;
-	MachineC *c;
-	Machine *defaultMachine;
-	Machine * pM[SIZE] = { a, a, b, c, c, defaultMachine };
+
+	Machine defaultMachine;
+	Machine *pDefault;
+	Machine * pM[SIZE] = { pDefault };
 	int totalMachines;
 
 public:
