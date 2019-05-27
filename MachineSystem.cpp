@@ -57,7 +57,7 @@ void MachineSystem::readFile()
 				}
 
 				pM[count]->setModel(model);
-				//pM[count]->setMachineName(model);
+				pM[count]->setMachineName(model, i);
 
 				infile >> quarters >> dimes >> nickels;
 				pM[count]->setCoins(quarters, dimes, nickels);

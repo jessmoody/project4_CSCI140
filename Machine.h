@@ -45,10 +45,6 @@ public:
 	{
 		model = m;
 	}
-	string getModel()
-	{
-		return model;
-	}
 	void setNumMachines(int nm) { numMachines = nm; }
 	void setCoins(int q, int d, int n)
 	{
@@ -70,7 +66,15 @@ public:
 		ProductList[n].selection = selection;
 		ProductList[n].OneInventory = OneInventory;
 	}
-	//void setMachineName();
+	void setMachineName(string s1, int n)
+	{
+		int a = n + 1;
+		string s2;
+		s2 = to_string(a);
+		machineName = s1 + s2;
+	}
+	string getModel(){	return model;	}
+
 	virtual void printMachine();
 	void printAvailableItems();
 	
@@ -158,6 +162,15 @@ public:
 		{
 			pM[i]->printAvailableItems();
 		}
+	}
+	void printAvailableItems(string s)
+	{
+		for (int i = 0; i < totalMachines; i++)
+		{
+			//if (s == )
+		}
+		
+		
 	}
 	void printAllMachines()
 	{

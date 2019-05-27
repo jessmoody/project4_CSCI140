@@ -41,6 +41,7 @@ void Machine::printAvailableItems()
 void Machine::printMachine()
 {
 	cout << "Machine Model: " << model << endl;
+	cout << "Machine Name: " << machineName << endl;
 	cout << "Quarters: " << inputCoin.quarters << endl;
 	cout << "Dimes: " << inputCoin.dimes << endl;
 	cout << "Nickels: " << inputCoin.nickels << endl;
@@ -52,7 +53,7 @@ void Machine::printMachine()
 			<< "Item ID: " << items[i].itemID << endl
 			<< "Quantity: " << items[i].quantity << endl
 			<< "Description: " << items[i].description << endl
-			<< "You selected: \"" << items[i].description << "\"" << endl
+			//<< "You selected: \"" << items[i].description << "\"" << endl
 			<< "Price: " << items[i].price << endl << endl;
 	}
 }
