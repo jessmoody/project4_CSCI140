@@ -48,7 +48,7 @@ void Machine::printMachine()
 			<< "Item ID: " << items[i].itemID << endl
 			<< "Quantity: " << items[i].quantity << endl
 			<< "Description: " << items[i].description << endl
-			<< "Price: " << fixed << showpoint << setprecision(2)
-			<< (items[i].price)/100 << endl << endl;
+			<< "You selected: \"" << items[i].description << "\"" << endl
+			<< "Price: " << items[i].price << endl << endl;
 	}
 }

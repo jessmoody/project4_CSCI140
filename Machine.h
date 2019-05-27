@@ -72,7 +72,8 @@ public:
 	}
 	//void setMachineName();
 	virtual void printMachine();
-
+	void printAvailableItems();
+	
 	//// These are just my functions from Project 1 - some are modified
 	//double calculateBalance(int totalCents);
 	//bool validation(string userInput);
@@ -151,6 +152,13 @@ public:
 		readFile();
 	}
 	void readFile();
+	void printAllAvailableItems()
+	{
+		for (int i = 0; i < totalMachines; i++)
+		{
+			pM[i]->printAvailableItems();
+		}
+	}
 	void printAllMachines()
 	{
 		for (int i = 0; i < totalMachines; i++)
