@@ -11,7 +11,7 @@ using namespace std;
 void MachineSystem::readFile()
 {
 	ifstream infile;	      // Input file to read values into array
-	infile.open("C:\\Users\\jessm\\Documents\\GitHub\\project4_CSCI140\\machines.txt", ios::in);
+	infile.open("machines.txt", ios::in);
 
 	string model;
 	int numMachines;
