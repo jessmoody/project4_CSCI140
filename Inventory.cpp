@@ -30,6 +30,7 @@ void Inventory::loadData()
 	while (!inProducts.eof())
 	{
 		inProducts >> InventoryList[i].id >> InventoryList[i].quantity >> InventoryList[i].price;
+		inProducts.ignore();
 		getline(inProducts, InventoryList[i].menu);
 		i++;
 	}
