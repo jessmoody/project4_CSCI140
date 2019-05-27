@@ -26,8 +26,8 @@ protected:
 	int numItems;
 	struct OneItem
 	{
-		string selection;
-		int itemID, quantity;
+		string selection, description;
+		int itemID, quantity, price;
 	};
 	OneItem items[SIZE];
 
@@ -57,17 +57,12 @@ public:
 		inputCoin.nickels = n;
 	}
 	void setNumItems(int ni) { numItems = ni; }
-	void setItem(string s, int id, int q, int n)
-	{
-		items[n].selection = s;
-		items[n].itemID = id;
-		items[n].quantity = q;
-	}
 	void setItem(string s, int n, Items OneProd)
 	{
-		// Missing price and menu
 		items[n].itemID = OneProd.id;
 		items[n].quantity = OneProd.quantity;
+		items[n].description = OneProd.menu;
+		items[n].price = OneProd.price;
 		items[n].selection = s;
 	}
 	void setProduct(string selection, Items OneInventory, int n)

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -22,6 +23,17 @@ Machine::Machine()
 		items[i].selection = "0";
 	}
 }
+
+void Machine::printAvailableItems()
+{
+	for (int i = 0; i < numItems; i++)
+	{
+		cout << items[i].selection << "\t"
+			 << items[i].price << "\t"
+			 << items[i].description << endl;
+	}
+}
+
 void Machine::printMachine()
 {
 	cout << "Machine Model: " << model << endl;
@@ -34,6 +46,9 @@ void Machine::printMachine()
 	{
 		cout << "Selection: " << items[i].selection << endl
 			<< "Item ID: " << items[i].itemID << endl
-			<< "Quantity: " << items[i].quantity << endl << endl;
+			<< "Quantity: " << items[i].quantity << endl
+			<< "Description: " << items[i].description << endl
+			<< "Price: " << fixed << showpoint << setprecision(2)
+			<< (items[i].price)/100 << endl << endl;
 	}
 }
