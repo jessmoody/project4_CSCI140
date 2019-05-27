@@ -21,16 +21,20 @@ Machine::Machine()
 		items[i].itemID = 0;
 		items[i].quantity = 0;
 		items[i].selection = "0";
+		items[i].description = "0";
+		items[i].price = 0;
 	}
 }
 
 void Machine::printAvailableItems()
 {
+	cout << "Available Items:" << endl;
 	for (int i = 0; i < numItems; i++)
 	{
-		cout << items[i].selection << "\t"
-			 << items[i].price << "\t"
-			 << items[i].description << endl;
+		//std::cout.width(6); std::cout << std::right
+		cout << "    " << items[i].selection << " ";
+		std::cout << std::setfill(' ') << std::setw(3) << std::right 
+			<< items[i].price << " " << items[i].description << endl;
 	}
 }
 

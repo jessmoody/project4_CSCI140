@@ -14,7 +14,7 @@ using namespace std;
 void Inventory::loadData()
 {
 	// Open "products.txt" 
-	ifstream inProducts("products.txt");
+	ifstream inProducts("C:\\Users\\jessm\\Documents\\GitHub\\project4_CSCI140\\products.txt");
 	if (!inProducts)
 	{
 		cout << "Error in reading file" << endl;

@@ -13,5 +13,5 @@ int main(void)
 		<< "       Printing all machines        "
 		<< "-------------------------------------" << endl;
 	TestSystem.printAllMachines();
-
+	TestSystem.printAllAvailableItems();
 }
