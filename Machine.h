@@ -39,10 +39,7 @@ protected:
 	OneProduct ProductList[SIZE];
 
 public:
-	Machine()
-	{
-		printf("This is machine\n");
-	}
+	Machine();
 
 	void setModel(string m)
 	{
@@ -78,22 +75,8 @@ public:
 		ProductList[n].selection = selection;
 		ProductList[n].OneInventory = OneInventory;
 	}
-	void setMachineName();
-	void printMachine()
-	{
-		cout << "Machine Model: " << model << endl;
-		cout << "Quarters: " << inputCoin.quarters << endl;
-		cout << "Dimes: " << inputCoin.dimes << endl;
-		cout << "Nickels: " << inputCoin.nickels << endl;
-		cout << "Number of items: " << numItems << endl << endl;
-		cout << "Items: " << endl;
-		for (int i = 0; i < numItems; i++)
-		{
-			cout << "Selection: " << items[i].selection << endl
-				<< "Item ID: " << items[i].itemID << endl
-				<< "Quantity: " << items[i].quantity << endl << endl;
-		}
-	}
+	//void setMachineName();
+	virtual void printMachine();
 
 	//// These are just my functions from Project 1 - some are modified
 	//double calculateBalance(int totalCents);
@@ -172,7 +155,6 @@ public:
 	{
 		readFile();
 	}
-	void setNewObject(Machine m, int index);
 	void readFile();
 	void printAllMachines()
 	{
@@ -181,5 +163,12 @@ public:
 			pM[i]->printMachine();
 		}
 	}
-	~MachineSystem() { delete[] pM; }
+	//~MachineSystem() 
+	//{ 
+	//	for (int i = 0; i < SIZE; i++) 
+	//	{
+	//		delete pM[i];
+	//		pM[i] = nullptr;
+	//	}
+	//}
 };

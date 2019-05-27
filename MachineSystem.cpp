@@ -1,4 +1,4 @@
-#include "MachineCopy.h"
+#include "Machine.h"
 #include "Inventory.h"
 #include <iostream>
 #include <string>
@@ -7,14 +7,6 @@
 using namespace std;
 
 //Inventory Product;
-
-void MachineSystem::setNewObject(Machine m, int index) // add object to array
-{
-	pM[index] = &m;
-	cout << m.getModel() << endl;
-
-	//system("pause");
-}
 
 void MachineSystem::readFile()
 {
@@ -39,9 +31,7 @@ void MachineSystem::readFile()
 	{
 		while (infile >> model)
 		{
-			//Machine m;
-			//cout << "File accessed" << endl;
-			//m.setModel(model);
+		
 			infile >> numMachines;
 			cout << "Model: " << model << endl << "Number of machines: " << numMachines << endl;
 			for (int i = 0; i < numMachines; i++)
@@ -67,13 +57,9 @@ void MachineSystem::readFile()
 				}
 
 				pM[count]->setModel(model);
-				pM[count]->setMachineName(model);
+				//pM[count]->setMachineName(model);
 
 				infile >> quarters >> dimes >> nickels;
-				cout << "Quarters: " << quarters << endl;
-				cout << "Dimes: " << dimes << endl;
-				cout << "Nickels: " << nickels << endl;
-				cout << endl;
 				pM[count]->setCoins(quarters, dimes, nickels);
 
 				infile >> numItems;
@@ -85,10 +71,6 @@ void MachineSystem::readFile()
 
 					infile >> selection >> itemID >> quantity;
 
-					cout << "Selection: " << selection << endl;
-					cout << "Item ID: " << itemID << endl;
-					cout << "Quantity: " << quantity << endl << endl;
-
 					// SystemProducts.getDescription(itemID);
 
 					Items OneInventory = SystemProducts.checkOut(itemID, quantity);
@@ -96,7 +78,6 @@ void MachineSystem::readFile()
 					pM[count]->setItem(selection, i, OneInventory);
 
 				}
-				//setNewObject(m, count);
 				count++;
 				totalMachines++;
 			}

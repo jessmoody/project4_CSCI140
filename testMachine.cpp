@@ -1,4 +1,4 @@
-#include "[Jessica]Machine - Copy.h"
+#include "Machine.h"
 #include "Inventory.h"
 #include <iostream>
 

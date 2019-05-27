@@ -7,6 +7,8 @@ using namespace std;
 
 Machine::Machine()
 {
+	printf("This is machine\n");
+
 	model = "0";
 	//numMachines = 0;
 	inputCoin.quarters = 0;
@@ -20,26 +22,12 @@ Machine::Machine()
 		items[i].selection = "0";
 	}
 }
-virtual void Machine::printMachine()
+void Machine::printMachine()
 {
 	cout << "Machine Model: " << model << endl;
 	cout << "Quarters: " << inputCoin.quarters << endl;
 	cout << "Dimes: " << inputCoin.dimes << endl;
 	cout << "Nickels: " << inputCoin.nickels << endl;
-	cout << "Number of items: " << numItems << endl << endl;
-	cout << "Items: " << endl;
-	for (int i = 0; i < numItems; i++)
-	{
-		cout << "Selection: " << items[i].selection << endl
-			<< "Item ID: " << items[i].itemID << endl
-			<< "Quantity: " << items[i].quantity << endl << endl;
-	}
-}
-
-virtual void MachineC::printMachine() override
-{
-	cout << "Machine Model: " << model << endl;
-	cout << "No coins.  This machine takes credit cards only" << endl;
 	cout << "Number of items: " << numItems << endl << endl;
 	cout << "Items: " << endl;
 	for (int i = 0; i < numItems; i++)
