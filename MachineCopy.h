@@ -180,4 +180,5 @@ public:
 			pM[i]->printMachine();
 		}
 	}
+	~MachineSystem() { delete[] pM; }
 };
