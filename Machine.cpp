@@ -8,10 +8,7 @@ using namespace std;
 
 Machine::Machine()
 {
-	printf("This is machine\n");
-
 	model = "0";
-	//numMachines = 0;
 	inputCoin.quarters = 0;
 	inputCoin.dimes = 0;
 	inputCoin.nickels = 0;
@@ -31,10 +28,12 @@ void Machine::printAvailableItems()
 	cout << "Available Items:" << endl;
 	for (int i = 0; i < numItems; i++)
 	{
-		//std::cout.width(6); std::cout << std::right
-		cout << "    " << items[i].selection << " ";
-		std::cout << std::setfill(' ') << std::setw(3) << std::right 
-			<< items[i].price << " " << items[i].description << endl;
+		if (items[i].quantity != 0)
+		{
+			cout << "    " << items[i].selection << " ";
+			std::cout << std::setfill(' ') << std::setw(3) << std::right
+				<< items[i].price << " " << items[i].description << endl;
+		}
 	}
 }
 

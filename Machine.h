@@ -15,7 +15,7 @@ class Machine
 protected:
 	string model;
 	string machineName;
-	int numMachines;
+	//int numMachines;
 	struct Coins
 	{
 		int quarters;
@@ -45,7 +45,7 @@ public:
 	{
 		model = m;
 	}
-	void setNumMachines(int nm) { numMachines = nm; }
+	//void setNumMachines(int nm) { numMachines = nm; }
 	void setCoins(int q, int d, int n)
 	{
 		inputCoin.quarters = q;
@@ -74,19 +74,10 @@ public:
 		machineName = s1 + s2;
 	}
 	string getModel(){	return model;	}
-
+	string getMachineName() { return machineName; }
 	virtual void printMachine();
 	void printAvailableItems();
 	
-	//// These are just my functions from Project 1 - some are modified
-	//double calculateBalance(int totalCents);
-	//bool validation(string userInput);
-	//void print();
-	//void printInstructions(double balance);
-	//void printFinalReport(double balance, int totalCents);
-	//// functions added for Project 4
-	//int calculateTotalCents(Coin c);	// add up quarters, dimes and nickels
-	//void getInventory();		// not actually void
 };
 
 class MachineA : public Machine
@@ -102,7 +93,7 @@ private:
 public:
 	MachineA()
 	{
-		printf("This is machineA\n");
+		/*printf("This is machineA\n")*/;
 	}
 	//bool makeChange(int amount, Coin &machine, Coin &back);
 	//double calculateBalance(int totalCents, Coin c);
@@ -121,7 +112,7 @@ private:
 public:
 	MachineB()
 	{
-		printf("This is machineB\n");
+		/*printf("This is machineB\n")*/;
 
 	}
 	//bool makeChange(int amount, Coin &machine, Coin &back);
@@ -136,7 +127,7 @@ private:
 public:
 	MachineC()
 	{
-		printf("This is machineC\n");
+		/*printf("This is machineC\n")*/;
 
 	}
 	//double calculateBalance(int totalCents);
@@ -156,21 +147,15 @@ public:
 		readFile();
 	}
 	void readFile();
-	void printAllAvailableItems()
-	{
-		for (int i = 0; i < totalMachines; i++)
-		{
-			pM[i]->printAvailableItems();
-		}
-	}
 	void printAvailableItems(string s)
 	{
 		for (int i = 0; i < totalMachines; i++)
 		{
-			//if (s == )
+			if (s == pM[i]->getMachineName())
+			{
+				pM[i]->printAvailableItems();
+			}
 		}
-		
-		
 	}
 	void printAllMachines()
 	{
@@ -181,10 +166,11 @@ public:
 	}
 	//~MachineSystem() 
 	//{ 
+	//	Machine m;
 	//	for (int i = 0; i < SIZE; i++) 
 	//	{
 	//		delete pM[i];
-	//		pM[i] = nullptr;
+	//		pM[i] = &m;
 	//	}
 	//}
 };

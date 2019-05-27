@@ -31,9 +31,8 @@ void MachineSystem::readFile()
 	{
 		while (infile >> model)
 		{
-		
 			infile >> numMachines;
-			cout << "Model: " << model << endl << "Number of machines: " << numMachines << endl;
+			
 			for (int i = 0; i < numMachines; i++)
 			{
 				//create machine
