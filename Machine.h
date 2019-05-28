@@ -104,6 +104,7 @@ public:
 			cout << "Item not found" << endl;
 		}
 	}
+	virtual void acceptMoney();
 	virtual void printMachine();
 	void printAvailableItems();
 	
@@ -124,6 +125,7 @@ public:
 	{
 		/*printf("This is machineA\n")*/;
 	}
+	virtual void acceptMoney() override;
 	//bool makeChange(int amount, Coin &machine, Coin &back);
 	//double calculateBalance(int totalCents, Coin c);
 
@@ -144,6 +146,7 @@ public:
 		/*printf("This is machineB\n")*/;
 
 	}
+	virtual void acceptMoney() override;
 	//bool makeChange(int amount, Coin &machine, Coin &back);
 	//double calculateBalance(int totalCents);
 
@@ -161,7 +164,7 @@ public:
 	}
 	//double calculateBalance(int totalCents);
 	//bool validateCreditCard(string n);
-
+	virtual void acceptMoney() override;
 };
 
 class MachineSystem
