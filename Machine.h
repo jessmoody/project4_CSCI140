@@ -75,6 +75,35 @@ public:
 	}
 	string getModel(){	return model;	}
 	string getMachineName() { return machineName; }
+	int findItem(string s)
+	{
+		for (int i = 0; i < numItems; i++)
+		{
+			if (s == items[i].selection)
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
+	// temporary function to print lines after 
+	// "select an item" in user interface
+	void outputItemInfo(string userInput)
+	{
+		int index2;
+		index2 = findItem(userInput);
+		if (index2 != -1)
+		{
+			cout << "You selected \""
+				<< items[index2].description << "\"." << endl
+				<< "The cost of this item is " << items[index2].price
+				<< " cents." << endl;
+		}
+		else
+		{
+			cout << "Item not found" << endl;
+		}
+	}
 	virtual void printMachine();
 	void printAvailableItems();
 	
@@ -147,15 +176,35 @@ public:
 		readFile();
 	}
 	void readFile();
-	void printAvailableItems(string s)
+	// function for user input in main - will be updated
+	void purchase(string s)
+	{
+		int index;
+		string userInput;
+		index = findMachine(s);
+		if (index != -1)
+		{
+			pM[index]->printAvailableItems();
+			cout << "Select an item --> ";
+			cin >> userInput;
+			pM[index]->outputItemInfo(userInput);
+		}
+		else
+		{
+			cout << "Machine not found" << endl;
+		}
+	}
+	int findMachine(string s)
 	{
 		for (int i = 0; i < totalMachines; i++)
 		{
 			if (s == pM[i]->getMachineName())
 			{
-				pM[i]->printAvailableItems();
+				return i;
 			}
 		}
+
+		return -1;
 	}
 	void printAllMachines()
 	{

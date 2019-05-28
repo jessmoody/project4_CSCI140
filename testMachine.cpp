@@ -10,10 +10,10 @@ int main(void)
 	MachineSystem TestSystem;
 	string code2 = "";
 
-	cout << "------------------------------------"
-		<< "       Printing all machines        "
-		<< "-------------------------------------" << endl;
-	TestSystem.printAllMachines();
+	//cout << "------------------------------------"
+	//	<< "       Printing all machines        "
+	//	<< "-------------------------------------" << endl;
+	//TestSystem.printAllMachines();
 
 	cout << "Initialize machines. Please wait ... " << endl
 		<< "Machines are ready." << endl
@@ -23,7 +23,7 @@ int main(void)
 		cout << "Select a machine: ";
 		cin >> code2;
 		cout << "This machine accepts..." << endl;
-		TestSystem.printAvailableItems(code2);
+		TestSystem.purchase(code2);
 	}
 	
 

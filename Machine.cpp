@@ -52,7 +52,6 @@ void Machine::printMachine()
 			<< "Item ID: " << items[i].itemID << endl
 			<< "Quantity: " << items[i].quantity << endl
 			<< "Description: " << items[i].description << endl
-			//<< "You selected: \"" << items[i].description << "\"" << endl
 			<< "Price: " << items[i].price << endl << endl;
 	}
 }
