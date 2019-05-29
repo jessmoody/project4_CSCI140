@@ -1,7 +1,9 @@
 /*
-Inplementation file for InventoryList class
-5/23/19
+5/29
+Bug fixed, we can have an extra line at the end of products.txt now... 
 */
+//Inplementation file for InventoryList class
+
 
 #include "Inventory.h"
 #include <iostream>
@@ -17,7 +19,7 @@ void Inventory::loadData()
 	ifstream inProducts("products.txt");
 	if (!inProducts)
 	{
-		cout << "Error in reading file" << endl;
+		cout << "Error in reading products.txt" << endl;
 		exit(1);
 	}
 
@@ -27,22 +29,34 @@ void Inventory::loadData()
 	// Attention:
 	// Bug: the file cannot have an extra line in the end,
 	// or the last item will be read twice
+	// UPDATE: bug removed
+	inProducts >> InventoryList[i].id >> InventoryList[i].quantity >> InventoryList[i].price;
 	while (!inProducts.eof())
 	{
-		inProducts >> InventoryList[i].id >> InventoryList[i].quantity >> InventoryList[i].price;
 		inProducts.ignore();
 		getline(inProducts, InventoryList[i].menu);
 		i++;
+		inProducts >> InventoryList[i].id >> InventoryList[i].quantity >> InventoryList[i].price;
 	}
 
 	numItem = i;
+
+	// TODO: remove this before submission
+	if (numItem != 23)
+	{
+		cout << "Oh no we have a bug again :'(\n\
+number of item this time: " << numItem << endl;
+		exit(24);
+	}
+
+
 	inProducts.close();
 }
 
 void Inventory::printInventory() const
 {
 	cout << "Number of item: " << numItem << endl;
-	for (int j = 0; j < NUMOFPROD; j++)
+	for (int j = 0; j < numItem; j++)
 	{
 		// TODO: change printf to cout
 		printf("%i %i %i %s\n", InventoryList[j].id, InventoryList[j].quantity,
