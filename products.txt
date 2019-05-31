@@ -10,7 +10,7 @@
 3649 15  95 12 oz orange juice
 4051 30  75 8 oz orange juice
 4211 25  65 apple juice
-5318 25 100 gatorade	
+5318 25 100 gatorade
 5336 50  60 regular coffee
 5454 40  85 large coffee
 5573 30  60 decaff coffee

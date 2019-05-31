@@ -17,6 +17,9 @@ Machine::Machine()
 	// *****Change 5/27*****
 	initialDollars = currentDollars = 0;
 	currentCoin = inputCoin;
+	transactions = 0;
+	totalCost = 0;
+	//initialBalance = currentBalance = 0;
 
 	numItems = 0;
 	// *****Change 5/27*****
@@ -30,9 +33,6 @@ Machine::Machine()
 		items[i].price = 0;
 	}
 
-	// *****Change 5/27*****
-	transactions = 0;
-	totalCost = 0;
 }
 
 void Machine::printAvailableItems()
