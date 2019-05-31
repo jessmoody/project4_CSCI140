@@ -1,16 +1,3 @@
-/*
-5/30
-Changed acceptMoney function
-acceptMoney in MachineC is ready
-Fixed the output by changing products.txt
-5/29 
-Destructor is ready, but the output is still a little bit off (see machineOutput.txt)
-Had to change the acceptMoney function otherwise the program wouldn't compile... 
-Working on the acceptMoney function in MachineC
-*/
-
-//outline of a potential class structure
-
 #pragma once
 
 #include "Inventory.h"
@@ -52,9 +39,6 @@ protected:
 
 public:
 	Machine();
-	// Destructor
-	// Open a file and record the machine information
-	~Machine();
 	void setModel(string m)
 	{
 		model = m;
@@ -81,20 +65,16 @@ public:
 	}
 	virtual void printMachine();
 	void printAvailableItems();
-	
 	//TODO: remove this before submission	
 	void printInventory();
+	// Destructor
+	// Open a file and record the machine information
+	~Machine();
 };
 
 class MachineA : public Machine
 {
 private:
-	struct Coin
-	{
-		int quarters;
-		int dimes;
-		int nickels;
-	};
 
 public:
 	MachineA()
@@ -109,12 +89,7 @@ public:
 class MachineB : public Machine
 {
 private:
-	struct Coin
-	{
-		int quarters;
-		int dimes;
-		int nickels;
-	};
+	
 public:
 	MachineB()
 	{
@@ -122,7 +97,6 @@ public:
 
 	}
 	//virtual void acceptMoney() override;
-
 };
 
 class MachineC : public Machine
@@ -152,72 +126,13 @@ public:
 		readFile();
 	}
 	void readFile();
-	// function for user input in main - will be updated
-	void purchase(string s)
-	{
-		int MachineIndex, itemIndex;
-		string userInput;
-		MachineIndex = findMachine(s);
-		if (MachineIndex != -1)
-		{
-			pM[MachineIndex]->printAvailableItems();
-			cout << "Select an item --> ";
-			cin >> userInput;
-			itemIndex = pM[MachineIndex]->findItem(userInput);
-			if (itemIndex == -1)
-			{
-				cout << "Your selection is not avaliable in the machine" << endl;
-				return;
-			}
-			pM[MachineIndex]->outputItemInfo(userInput);
-		}
-		else
-		{
-			cout << "Machine not found" << endl;
-			return;
-		}
-
-		pM[MachineIndex]->acceptMoney(itemIndex);
-	}
-	int findMachine(string s)
-	{
-		for (int i = 0; i < totalMachines; i++)
-		{
-			if (s == pM[i]->getMachineName())
-			{
-				return i;
-			}
-		}
-
-		return -1;
-	}
-	void printAllMachines()
-	{
-		for (int i = 0; i < totalMachines; i++)
-		{
-			pM[i]->printMachine();
-		}
-	}
-
+	void purchase(string s);  // function for user input in main - will be updated
+	int findMachine(string s);
+	void printAllMachines();
 	//TODO: remove this before submission	
 	void printMInv()
 	{
 		pM[0]->printInventory();
 	}
-
-	~MachineSystem()
-	{
-
-		// TODO: remove this before submission
-		ofstream out("machinesOutput.txt");
-		out.close();
-
-		cout << "Report is generating..." << endl;
-		for (int i = 0; i < totalMachines; i++)
-		{
-			delete pM[i];
-			pM[i] = 0;
-		}
-		cout << "System is shutting down." << endl;
-	}
+	~MachineSystem();
 };

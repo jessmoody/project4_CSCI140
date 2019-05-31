@@ -87,3 +87,67 @@ void MachineSystem::readFile()
 	}
 		infile.close();
 }
+
+void MachineSystem::purchase(string s)
+{
+	int MachineIndex, itemIndex;
+	string userInput;
+	MachineIndex = findMachine(s);
+	if (MachineIndex != -1)
+	{
+		pM[MachineIndex]->printAvailableItems();
+		cout << "Select an item --> ";
+		cin >> userInput;
+		itemIndex = pM[MachineIndex]->findItem(userInput);
+		if (itemIndex == -1)
+		{
+			cout << "Your selection is not avaliable in the machine" << endl;
+			return;
+		}
+		pM[MachineIndex]->outputItemInfo(userInput);
+	}
+	else
+	{
+		cout << "Machine not found" << endl;
+		return;
+	}
+
+	pM[MachineIndex]->acceptMoney(itemIndex);
+}
+
+int MachineSystem::findMachine(string s)
+{
+	for (int i = 0; i < totalMachines; i++)
+	{
+		if (s == pM[i]->getMachineName())
+		{
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+void MachineSystem::printAllMachines()
+{
+	for (int i = 0; i < totalMachines; i++)
+	{
+		pM[i]->printMachine();
+	}
+}
+
+MachineSystem::~MachineSystem()
+{
+
+	// TODO: remove this before submission
+	ofstream out("machinesOutput.txt");
+	out.close();
+
+	cout << "Report is generating..." << endl;
+	for (int i = 0; i < totalMachines; i++)
+	{
+		delete pM[i];
+		pM[i] = 0;
+	}
+	cout << "System is shutting down." << endl;
+}
