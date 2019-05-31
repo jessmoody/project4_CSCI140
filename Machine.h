@@ -59,137 +59,35 @@ protected:
 
 public:
 	Machine();
-
+	~Machine();
 	void setModel(string m)
 	{
 		model = m;
 	}
-	//void setNumMachines(int nm) { numMachines = nm; }
-
-	// ONLY call this in initialization
-	void setCoins(int q, int d, int n)
-	{
-		inputCoin.quarters = q;
-		inputCoin.dimes = d;
-		inputCoin.nickels = n;
-
-		// *****Change 5/27*****
-		currentCoin = inputCoin;
-	}
+	void setCoins(int q, int d, int n);
 	void setNumItems(int ni) { numItems = ni; }
-
 	// ONLY call this in initialization
-	void setItem(string s, int n, Items OneProd)
-	{
-		items[n].itemID = OneProd.id;
-		items[n].initialQuantity = OneProd.quantity;	// *****Change 5/27*****
-		items[n].description = OneProd.menu;
-		items[n].price = OneProd.price;
-		items[n].selection = s;
-
-		// *****Change 5/27*****
-		items[n].currentQuantity = items[n].initialQuantity;
-	}
-
+	void setItem(string s, int n, Items OneProd);
+	void setMachineName(string s1, int n);
 	// *****Change 5/27*****
 	// Calculate the machine balance in dollars
 	// Can calculate the initial and current balance
 	// ***** Change 5/28: change it to virtual *****
-	double InitializeBalances()
-	{
-		// Maybe we can declare constants
-		double balance = initialDollars + 0.25 * inputCoin.quarters + 0.10 * inputCoin.dimes + 0.05 * inputCoin.nickels;
-		initialBalance = currentBalance = balance;
-		return balance;
-	}
-
-	void setMachineName(string s1, int n)
-	{
-		int a = n + 1;
-		string s2;
-		s2 = to_string(a);
-		machineName = s1 + s2;
-	}
+	double InitializeBalances();
 	string getModel(){	return model;	}
 	string getMachineName() { return machineName; }
-	int findItem(string s)
-	{
-		for (int i = 0; i < numItems; i++)
-		{
-			if (s == items[i].selection)
-			{
-				if (items[i].currentQuantity != 0)
-				{
-					return i; 
-				}
-			}
-		}
-		return -1;
-	}
+	int findItem(string s);
 	// temporary function to print lines after 
 	// "select an item" in user interface
-	void outputItemInfo(string userInput)
-	{
-		int index2;
-		index2 = findItem(userInput);
-		if (index2 != -1)
-		{
-			cout << "You selected \""
-				<< items[index2].description << "\"." << endl
-				<< "The cost of this item is " << items[index2].price
-				<< " cents." << endl;
-		}
-		else
-		{
-			cout << "Item not found" << endl;
-		}
-	}
+	void outputItemInfo(string userInput);
 	virtual void acceptMoney(int index)
 	{
 		cout << "acceptMoney in Machine class" << endl;
 	}
 	virtual void printMachine();
 	void printAvailableItems();
-
 	// Destructor
 	// Open a file and record the machine information
-	~Machine()
-	{
-		ofstream outM;
-		outM.open("machinesOutput.txt", ios::app);	// TO be closed
-		if (!outM)
-		{
-			cout << "Error: Cannot open machinesOutput.txt" << endl;
-			exit(3);
-		}
-
-		outM << "Machine: " << machineName << endl;
-		outM << fixed << setprecision(2);
-		outM << "Initial balance: $"  << initialBalance /* << calcBalance(inputCoin, initialDollars)*/
-			<< " (" << initialDollars << " $, " << inputCoin.quarters << " Q, "
-			<< inputCoin.dimes << " D, " << inputCoin.nickels << " N)" << endl;
-		outM << "Number of valid transactions: " << transactions << endl;
-		outM << "Total cost: $" << totalCost << endl;
-		outM << "Current balance: $" << currentBalance /*<< calcBalance(currentCoin, currentDollars)*/
-			<< " (" << currentDollars << " $, " << currentCoin.quarters << " Q, "
-			<< currentCoin.dimes << " D, " << currentCoin.nickels << " N)" << endl;
-		outM << endl;
-
-		// Print inventory
-		outM << "Machine inventory:\n"
-			<< "Code        Id       Description            Initial     Current" << endl;
-		for (int i = 0; i < numItems; i++)
-		{
-			outM << setw(4) << items[i].selection
-				<< setw(10) << items[i].itemID << "       "
-				<< left << setw(25) << items[i].description
-				<< right << setw(2) << items[i].initialQuantity
-				<< setw(12) << items[i].currentQuantity << endl;
-		}
-		outM << endl;
-		outM.close();
-	}
-	
 	
 	//TODO: remove this before submission	
 	void printInventory()
@@ -205,7 +103,7 @@ public:
 				<< setw(12) << items[i].currentQuantity << endl;
 		}
 	}
-
+	
 };
 
 class MachineA : public Machine
@@ -223,7 +121,7 @@ public:
 	{
 		/*printf("This is machineA\n")*/;
 	}
-	virtual void acceptMoney() override;
+	//virtual void acceptMoney() override;
 	//bool makeChange(int amount, Coin &machine, Coin &back);
 	//double calculateBalance(int totalCents, Coin c);
 
@@ -244,7 +142,7 @@ public:
 		/*printf("This is machineB\n")*/;
 
 	}
-	virtual void acceptMoney() override;
+	//virtual void acceptMoney() override;
 	//bool makeChange(int amount, Coin &machine, Coin &back);
 	//double calculateBalance(int totalCents);
 
