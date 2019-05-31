@@ -21,7 +21,7 @@ protected:
 		int dimes;
 		int nickels;
 	};
-	Coins inputCoin;
+	Coins initialCoin;
 	Coins currentCoin;
 	int initialDollars = 0;
 	int currentDollars = 0;
@@ -62,6 +62,7 @@ public:
 	virtual void acceptMoney(int index)
 	{
 		cout << "acceptMoney in Machine class" << endl;
+		return false;
 	}
 	virtual void printMachine();
 	void printAvailableItems();
@@ -126,9 +127,103 @@ public:
 		readFile();
 	}
 	void readFile();
-	void purchase(string s);  // function for user input in main - will be updated
-	int findMachine(string s);
-	void printAllMachines();
+	// function for user input in main - will be updated
+	void purchase(string s)
+	{
+		int MachineIndex, itemIndex;
+		string userInput;
+		MachineIndex = findMachine(s);
+		if (MachineIndex != -1)
+		{
+			pM[MachineIndex]->printAvailableItems();
+			cout << "Select an item --> ";
+			cin >> userInput;
+			itemIndex = pM[MachineIndex]->findItem(userInput);
+			if (itemIndex == -1)
+			{
+				cout << "Your selection is not avaliable in the machine" << endl;
+				return;
+			}
+			pM[MachineIndex]->outputItemInfo(userInput);
+		}
+		else
+		{
+			cout << "Machine not found" << endl;
+			return;
+		}
+
+		bool successfulTransaction = pM[MachineIndex]->acceptMoney(itemIndex);
+		if (successfulTransaction)
+		{
+			cout << "Thank you! Please take your item." << endl;
+		}
+
+	}
+
+	void purchase()
+	{
+		int MachineIndex, itemIndex;
+		string MachineSelection, itemSelection;
+		cout << "Select a machine--> ";
+		cin >> MachineSelection;
+		while (MachineSelection != "spring19")
+		{
+			MachineIndex = findMachine(MachineSelection);
+			if (MachineIndex != -1)
+			{
+				pM[MachineIndex]->printAvailableItems();
+				cout << "Select an item --> ";
+				cin >> itemSelection;
+				itemIndex = pM[MachineIndex]->findItem(itemSelection);
+				if (itemIndex != -1)
+				{
+					pM[MachineIndex]->outputItemInfo(itemSelection);
+					pM[MachineIndex]->acceptMoney(itemIndex);
+				}
+				else
+				{
+					cout << "Your selection is not avaliable in this machine" << endl;
+				}
+			}
+			else
+			{
+				cout << "This Machine is not in the system" << endl;
+			}
+
+			cout << "\nSelect a machine--> ";
+			cin >> MachineSelection;
+		}
+	}
+
+	int findMachine(string s)
+	{
+		for (int i = 0; i < totalMachines; i++)
+		{
+			if (s == pM[i]->getMachineName())
+			{
+				return i;
+			}
+		}
+
+		return -1;
+	}
+	void printAllMachines()
+	{
+		for (int i = 0; i < totalMachines; i++)
+		{
+			pM[i]->printMachine();
+		}
+	}
+	//~MachineSystem() 
+	//{ 
+	//	Machine m;
+	//	for (int i = 0; i < SIZE; i++) 
+	//	{
+	//		delete pM[i];
+	//		pM[i] = &m;
+	//	}
+	//}
+
 	//TODO: remove this before submission	
 	void printMInv()
 	{
