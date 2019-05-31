@@ -59,7 +59,7 @@ public:
 	// temporary function to print lines after 
 	// "select an item" in user interface
 	void outputItemInfo(string userInput);
-	virtual void acceptMoney(int index)
+	virtual bool acceptMoney(int index)
 	{
 		cout << "acceptMoney in Machine class" << endl;
 		return false;
@@ -111,7 +111,7 @@ public:
 	}
 	//double calculateBalance(int totalCents);
 	bool validateCreditCard(string n);
-	virtual void acceptMoney(int index); /*override*/
+	virtual bool acceptMoney(int index); /*override*/
 	virtual double calcBalance(Coins c, int dollars);
 };
 

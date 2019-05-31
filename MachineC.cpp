@@ -46,7 +46,7 @@ bool MachineC::validateCreditCard(string n)
 	return valid;
 }
 
-void MachineC::acceptMoney(int index)
+bool MachineC::acceptMoney(int index) /*override*/
 {
 	// Validate credit card
 	// Need to try different test cases:
@@ -67,7 +67,7 @@ void MachineC::acceptMoney(int index)
 		if (attempt == 2)	// After 2 fails
 		{
 			cout << "Too many invalid attempts.  Your selectionis cancelled." << endl;
-			return;
+			return false;
 		}
 
 		cout << "Enter your credit card number--> ";
@@ -84,9 +84,9 @@ void MachineC::acceptMoney(int index)
 	transactions++;
 	items[index].currentQuantity--;
 	totalCost += priceDollar;
-	currentBalance += totalCost;
+	currentBalance += priceDollar;
 
-	cout << "Thank you! Please take your item." << endl;
+	return true;
 
 }
 
