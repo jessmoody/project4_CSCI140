@@ -10,13 +10,13 @@ Machine::Machine()
 {
 	model = "0";
 
-	inputCoin.quarters = 0;
-	inputCoin.dimes = 0;
-	inputCoin.nickels = 0;
+	initialCoin.quarters = 0;
+	initialCoin.dimes = 0;
+	initialCoin.nickels = 0;
 
 	// *****Change 5/27*****
 	initialDollars = currentDollars = 0;
-	currentCoin = inputCoin;
+	currentCoin = initialCoin;
 	transactions = 0;
 	totalCost = 0;
 	//initialBalance = currentBalance = 0;
@@ -38,12 +38,12 @@ Machine::Machine()
 // ONLY call this in initialization
 void Machine::setCoins(int q, int d, int n)
 {
-	inputCoin.quarters = q;
-	inputCoin.dimes = d;
-	inputCoin.nickels = n;
+	initialCoin.quarters = q;
+	initialCoin.dimes = d;
+	initialCoin.nickels = n;
 
 	// *****Change 5/27*****
-	currentCoin = inputCoin;
+	currentCoin = initialCoin;
 }
 
 void Machine::setItem(string s, int n, Items OneProd)
@@ -69,7 +69,7 @@ void Machine::setMachineName(string s1, int n)
 double Machine::InitializeBalances()
 {
 	// Maybe we can declare constants
-	double balance = initialDollars + 0.25 * inputCoin.quarters + 0.10 * inputCoin.dimes + 0.05 * inputCoin.nickels;
+	double balance = initialDollars + 0.25 * initialCoin.quarters + 0.10 * initialCoin.dimes + 0.05 * initialCoin.nickels;
 	initialBalance = currentBalance = balance;
 	return balance;
 }
@@ -124,9 +124,9 @@ void Machine::printMachine()
 {
 	cout << "Machine Model: " << model << endl;
 	cout << "Machine Name: " << machineName << endl;
-	cout << "Quarters: " << inputCoin.quarters << endl;
-	cout << "Dimes: " << inputCoin.dimes << endl;
-	cout << "Nickels: " << inputCoin.nickels << endl;
+	cout << "Quarters: " << initialCoin.quarters << endl;
+	cout << "Dimes: " << initialCoin.dimes << endl;
+	cout << "Nickels: " << initialCoin.nickels << endl;
 	cout << "Number of items: " << numItems << endl << endl;
 	cout << "Items: " << endl;
 	for (int i = 0; i < numItems; i++)
@@ -168,9 +168,9 @@ Machine::~Machine()
 
 	outM << "Machine: " << machineName << endl;
 	outM << fixed << setprecision(2);
-	outM << "Initial balance: $" << initialBalance /* << calcBalance(inputCoin, initialDollars)*/
-		<< " (" << initialDollars << " $, " << inputCoin.quarters << " Q, "
-		<< inputCoin.dimes << " D, " << inputCoin.nickels << " N)" << endl;
+	outM << "Initial balance: $" << initialBalance /* << calcBalance(initialCoin, initialDollars)*/
+		<< " (" << initialDollars << " $, " << initialCoin.quarters << " Q, "
+		<< initialCoin.dimes << " D, " << initialCoin.nickels << " N)" << endl;
 	outM << "Number of valid transactions: " << transactions << endl;
 	outM << "Total cost: $" << totalCost << endl;
 	outM << "Current balance: $" << currentBalance /*<< calcBalance(currentCoin, currentDollars)*/
