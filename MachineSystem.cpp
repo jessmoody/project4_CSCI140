@@ -25,7 +25,8 @@ void MachineSystem::readFile()
 
 	if (!infile)
 	{
-		cout << "Cannot access file" << endl;
+		cout << "Cannot access machines.txt" << endl;
+		exit(2);
 	}
 	else
 	{
@@ -60,6 +61,7 @@ void MachineSystem::readFile()
 
 				infile >> quarters >> dimes >> nickels;
 				pM[count]->setCoins(quarters, dimes, nickels);
+				pM[count]->InitializeBalances();
 
 				infile >> numItems;
 				pM[count]->setNumItems(numItems);
