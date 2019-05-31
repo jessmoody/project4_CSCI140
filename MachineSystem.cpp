@@ -88,32 +88,41 @@ void MachineSystem::readFile()
 		infile.close();
 }
 
-void MachineSystem::purchase(string s)
+void MachineSystem::purchase()
 {
 	int MachineIndex, itemIndex;
-	string userInput;
-	MachineIndex = findMachine(s);
-	if (MachineIndex != -1)
+	string MachineSelection, itemSelection;
+	cout << "Select a machine--> ";
+	cin >> MachineSelection;
+	while (MachineSelection != "spring19")
 	{
-		pM[MachineIndex]->printAvailableItems();
-		cout << "Select an item --> ";
-		cin >> userInput;
-		itemIndex = pM[MachineIndex]->findItem(userInput);
-		if (itemIndex == -1)
+		MachineIndex = findMachine(MachineSelection);
+		if (MachineIndex != -1)
 		{
-			cout << "Your selection is not avaliable in the machine" << endl;
-			return;
+			pM[MachineIndex]->printAvailableItems();
+			cout << "Select an item --> ";
+			cin >> itemSelection;
+			itemIndex = pM[MachineIndex]->findItem(itemSelection);
+			if (itemIndex != -1)
+			{
+				pM[MachineIndex]->outputItemInfo(itemSelection);
+				pM[MachineIndex]->acceptMoney(itemIndex);
+			}
+			else
+			{
+				cout << "Your selection is not avaliable in this machine" << endl;
+			}
 		}
-		pM[MachineIndex]->outputItemInfo(userInput);
-	}
-	else
-	{
-		cout << "Machine not found" << endl;
-		return;
-	}
+		else
+		{
+			cout << "This Machine is not in the system" << endl;
+		}
 
-	pM[MachineIndex]->acceptMoney(itemIndex);
+		cout << "\nSelect a machine--> ";
+		cin >> MachineSelection;
+	}
 }
+
 
 int MachineSystem::findMachine(string s)
 {
@@ -134,6 +143,11 @@ void MachineSystem::printAllMachines()
 	{
 		pM[i]->printMachine();
 	}
+}
+
+void MachineSystem::printMInv()
+{
+	pM[0]->printInventory();
 }
 
 MachineSystem::~MachineSystem()
