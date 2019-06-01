@@ -36,7 +36,7 @@ protected:
 		int dimes;
 		int nickels;
 	};
-	Coins inputCoin;
+	Coins initialCoin;
 	Coins currentCoin;
 
 	int initialDollars = 0;
@@ -82,12 +82,12 @@ public:
 	// ONLY call this in initialization
 	void setCoins(int q, int d, int n)
 	{
-		inputCoin.quarters = q;
-		inputCoin.dimes = d;
-		inputCoin.nickels = n;
+		initialCoin.quarters = q;
+		initialCoin.dimes = d;
+		initialCoin.nickels = n;
 
 		// *****Change 5/27*****
-		currentCoin = inputCoin;
+		currentCoin = initialCoin;
 	}
 	void setNumItems(int ni) { numItems = ni; }
 
@@ -118,7 +118,7 @@ public:
 	double InitializeBalances()
 	{
 		// Maybe we can declare constants
-		double balance = initialDollars + 0.25 * inputCoin.quarters + 0.10 * inputCoin.dimes + 0.05 * inputCoin.nickels;
+		double balance = initialDollars + 0.25 * initialCoin.quarters + 0.10 * initialCoin.dimes + 0.05 * initialCoin.nickels;
 		initialBalance = currentBalance = balance;
 		return balance;
 	}
@@ -155,7 +155,7 @@ public:
 		index2 = findItem(userInput);
 		if (index2 != -1)
 		{
-			cout << "You selected \""
+			std::cout << "You selected \""
 				<< items[index2].description << "\"." << endl
 				<< "The cost of this item is " << items[index2].price
 				<< " cents." << endl;
@@ -165,9 +165,10 @@ public:
 			cout << "Item not found" << endl;
 		}
 	}
-	virtual void acceptMoney(int index)
+	virtual bool acceptMoney(int index)
 	{
 		cout << "acceptMoney in Machine class" << endl;
+		return false;
 	}
 	virtual void printMachine();
 	void printAvailableItems();
@@ -186,9 +187,9 @@ public:
 
 		outM << "Machine: " << machineName << endl;
 		outM << fixed << setprecision(2);
-		outM << "Initial balance: $"  << initialBalance /* << calcBalance(inputCoin, initialDollars)*/
-			<< " (" << initialDollars << " $, " << inputCoin.quarters << " Q, "
-			<< inputCoin.dimes << " D, " << inputCoin.nickels << " N)" << endl;
+		outM << "Initial balance: $"  << initialBalance /* << calcBalance(initialCoin, initialDollars)*/
+			<< " (" << initialDollars << " $, " << initialCoin.quarters << " Q, "
+			<< initialCoin.dimes << " D, " << initialCoin.nickels << " N)" << endl;
 		outM << "Number of valid transactions: " << transactions << endl;
 		outM << "Total cost: $" << totalCost << endl;
 		outM << "Current balance: $" << currentBalance /*<< calcBalance(currentCoin, currentDollars)*/
@@ -244,21 +245,17 @@ public:
 	{
 		/*printf("This is machineA\n")*/;
 	}
-	//virtual void acceptMoney(int index) override;
+	//virtual bool acceptMoney(int index) override;
 	//bool makeChange(int amount, Coin &machine, Coin &back);
 	//double calculateBalance(int totalCents, Coin c);
 
 };
 
+
 class MachineB : public Machine
 {
 private:
-	struct Coin
-	{
-		int quarters;
-		int dimes;
-		int nickels;
-	};
+	Coins change;
 public:
 	MachineB()
 	{
@@ -266,50 +263,40 @@ public:
 
 	}
 	//virtual void acceptMoney(int index) override;
-	virtual void acceptMoney(int index) /*override*/
+	virtual bool acceptMoney(int index) /*override*/
 	{
+
 		int purchase, change_amount;
-		cout << "Enter a purchase amount [0 - 100] --> ";
-		cin >> purchase;
-		if (purchase <= 100)
+
+		purchase = items[index].price;
+		bool valid;
+
+		change_amount = (100 - purchase)/100;
+
+		cout << "Please insert a one-dollar bill. " << endl;
+		cout << "Processing your purchase ..." << endl;
+		cout << currentBalance << endl;
+		if (currentBalance >= change_amount)
 		{
-			int division = purchase % 5;
-			if (division == 0)
-			{
-				change_amount = 100 - purchase;
-				initial_balance = initial_balance - static_cast<double>(change_amount) / 100.0;
-				cout << "Please insert a one-dollar bill. " << endl;
-				cout << "Processing your purchase ..." << endl;
-				if (initial_balance > 0)
-				{
-					valid = makeChangesOfdollar(change_amount, machine, change);
-					cout << "Your change of " << change_amount << " cents is given as: " << endl;
-					printCoin(change);
-					count++;
-					countDollar++;
-				}
-				else
-				{
-					initial_balance = initial_balance + static_cast<double>(change_amount) / 100;
-					cout << "Insufficient changes! " << endl;
-					cout << "Your transaction cannot be processed. " << endl;
-					cout << "Please take back your dollar bill. " << endl;
-				}
-			}
-			else
-			{
-				cout << "Invalid amount (not a multiple 5). Try again." << endl;
-			}
+			valid = makeChangesOfdollar(change_amount, currentCoin, change);
+			cout << "Your change of " << change_amount << " cents is given as: " << endl;
+			printCoin(change);
+			/*count++;
+			countDollar++;*/
+			return true;
 		}
 		else
 		{
-			cout << "Invalid amount (outside valid range). Try again. " << endl;
+			cout << "Insufficient changes! " << endl;
+			cout << "Your transaction cannot be processed. " << endl;
+			cout << "Please take back your dollar bill. " << endl;
 		}
-		
+		return false;
+
 
 	}
-	
-	bool makeChange(int amount, Coin &machine, Coin &back)
+
+	bool makeChangesOfdollar(int amount, Coins &machine, Coins &back)
 	{
 		bool valid = true;
 		int total1, total2;
@@ -371,10 +358,20 @@ public:
 		}
 		return valid;
 	}
-
+	void printCoin(Coins c)
+	{
+		cout << "    Quarters:   " << c.quarters << endl;
+		cout << "    Dimes:      " << c.dimes << endl;
+		cout << "    Nickels:    " << c.nickels << endl << endl;
+	}
 	//double calculateBalance(int totalCents);
 
 };
+	//virtual bool acceptMoney(int index) override;
+	//bool makeChange(int amount, Coin &machine, Coin &back);
+	//double calculateBalance(int totalCents);
+
+
 
 class MachineC : public Machine
 {
@@ -428,7 +425,7 @@ public:
 		return valid;
 	}
 
-	virtual void acceptMoney(int index) /*override*/
+	virtual bool acceptMoney(int index) /*override*/
 	{
 		// Validate credit card
 		// Need to try different test cases:
@@ -449,7 +446,7 @@ public:
 			if (attempt == 2)	// After 2 fails
 			{
 				cout << "Too many invalid attempts.  Your selectionis cancelled." << endl;
-				return;
+				return false;
 			}
 
 			cout << "Enter your credit card number--> ";
@@ -466,9 +463,9 @@ public:
 		transactions++;
 		items[index].currentQuantity--;
 		totalCost += priceDollar;
-		currentBalance += totalCost;
+		currentBalance += priceDollar;
 
-		cout << "Thank you! Please take your item." << endl;
+		return true;
 
 	}
 
@@ -491,32 +488,73 @@ public:
 	}
 	void readFile();
 	// function for user input in main - will be updated
-	void purchase(string s)
+	//void purchase(string s)
+	//{
+	//	int MachineIndex, itemIndex;
+	//	string userInput;
+	//	MachineIndex = findMachine(s);
+	//	if (MachineIndex != -1)
+	//	{
+	//		pM[MachineIndex]->printAvailableItems();
+	//		cout << "Select an item --> ";
+	//		cin >> userInput;
+	//		itemIndex = pM[MachineIndex]->findItem(userInput);
+	//		if (itemIndex == -1)
+	//		{
+	//			cout << "Your selection is not avaliable in the machine" << endl;
+	//			return;
+	//		}
+	//		pM[MachineIndex]->outputItemInfo(userInput);
+	//	}
+	//	else
+	//	{
+	//		cout << "Machine not found" << endl;
+	//		return;
+	//	}
+
+	//	bool successfulTransaction = pM[MachineIndex]->acceptMoney(itemIndex);
+	//	if (successfulTransaction)
+	//	{
+	//		cout << "Thank you! Please take your item." << endl;
+	//	}
+
+	//}
+
+	void purchase()
 	{
 		int MachineIndex, itemIndex;
-		string userInput;
-		MachineIndex = findMachine(s);
-		if (MachineIndex != -1)
+		string MachineSelection, itemSelection;
+		cout << "Select a machine--> ";
+		cin >> MachineSelection;
+		while (MachineSelection != "spring19")
 		{
-			pM[MachineIndex]->printAvailableItems();
-			cout << "Select an item --> ";
-			cin >> userInput;
-			itemIndex = pM[MachineIndex]->findItem(userInput);
-			if (itemIndex == -1)
+			MachineIndex = findMachine(MachineSelection);
+			if (MachineIndex != -1)
 			{
-				cout << "Your selection is not avaliable in the machine" << endl;
-				return;
+				pM[MachineIndex]->printAvailableItems();
+				cout << "Select an item --> ";
+				cin >> itemSelection;
+				itemIndex = pM[MachineIndex]->findItem(itemSelection);
+				if (itemIndex != -1)
+				{
+					pM[MachineIndex]->outputItemInfo(itemSelection);
+					pM[MachineIndex]->acceptMoney(itemIndex);
+				}
+				else
+				{
+					cout << "Your selection is not avaliable in this machine" << endl;
+				}
 			}
-			pM[MachineIndex]->outputItemInfo(userInput);
-		}
-		else
-		{
-			cout << "Machine not found" << endl;
-			return;
-		}
+			else
+			{
+				cout << "This Machine is not in the system" << endl;
+			}
 
-		pM[MachineIndex]->acceptMoney(itemIndex);
+			cout << "\nSelect a machine--> ";
+			cin >> MachineSelection;
+		}
 	}
+
 	int findMachine(string s)
 	{
 		for (int i = 0; i < totalMachines; i++)
