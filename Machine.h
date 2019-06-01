@@ -233,21 +233,117 @@ public:
 class MachineA : public Machine
 {
 private:
-	struct Coin
-	{
-		int quarters;
-		int dimes;
-		int nickels;
-	};
-
+	Coins change;
 public:
-	MachineA()
+	MachineB()
 	{
-		/*printf("This is machineA\n")*/;
+		/*printf("This is machineB\n")*/;
+
 	}
-	//virtual bool acceptMoney(int index) override;
-	//bool makeChange(int amount, Coin &machine, Coin &back);
-	//double calculateBalance(int totalCents, Coin c);
+	//virtual void acceptMoney(int index) override;
+	virtual bool acceptMoney(int index) /*override*/
+	{
+
+		int purchase, change_amount;
+
+		purchase = items[index].price;
+		bool valid;
+
+		change_amount = 100 - purchase;
+
+		cout << "Please insert a one-dollar bill. " << endl;
+		cout << "Processing your purchase ..." << endl;
+		cout << currentBalance << endl;
+		cout << change_amount << endl;
+		if (currentBalance >= (change_amount / 100))
+		{
+			valid = makeChangesOfdollar(change_amount, currentCoin, change);
+			cout << "Your change of " << change_amount << " cents is given as: " << endl;
+			printCoin(change);
+			/*count++;
+			countDollar++;*/
+			return true;
+		}
+		else
+		{
+			cout << "Insufficient changes! " << endl;
+			cout << "Your transaction cannot be processed. " << endl;
+			cout << "Please take back your dollar bill. " << endl;
+		}
+		return false;
+
+
+	}
+
+	bool makeChangesOfdollar(int amount, Coins &machine, Coins &back)
+	{
+		bool valid = true;
+		int total1, total2;
+		back.quarters = 0;
+		back.dimes = 0;
+		back.nickels = 0;
+		if (machine.quarters > 0)
+		{
+			// Calculate the quarters
+
+			// Calculate the dimes
+			if (machine.dimes > 0 && machine.nickels > 0)
+			{
+				back.quarters = amount / 25;
+				total1 = amount - (back.quarters * 25);
+				back.dimes = total1 / 10;
+				total2 = total1 - (back.dimes * 10);
+				// Calculate the nickels
+				back.nickels = total2 / 5;
+				machine.dimes -= back.dimes;
+				machine.nickels -= back.nickels;
+				machine.quarters -= back.quarters;
+			}
+			else if (machine.dimes > 0 && machine.nickels <= 0)
+			{
+				back.dimes = (amount / 10) - 2;
+				total1 = amount - (back.dimes * 10);
+				back.quarters = total1 / 25;
+				machine.dimes -= back.dimes;
+				machine.quarters -= back.quarters;
+			}
+		}
+		else
+		{
+			if (machine.dimes > 0)
+			{
+				// Calculate the dimes
+				back.dimes = amount / 10;
+				total1 = amount - (back.dimes * 10);
+				// Calculate the nickels
+				back.nickels = total1 / 5;
+				machine.dimes -= back.dimes;
+				machine.nickels -= back.nickels;
+			}
+			else
+			{
+				if (machine.nickels > 0)
+				{
+					// Calculate the nickels
+					back.nickels = amount / 5;
+					machine.nickels -= back.nickels;
+				}
+				else
+				{
+					cout << "We run out the quarters, dimes, and nickels." << endl;
+				}
+			}
+
+		}
+		return valid;
+	}
+	void printCoin(Coins c)
+	{
+		cout << "    Quarters:   " << c.quarters << endl;
+		cout << "    Dimes:      " << c.dimes << endl;
+		cout << "    Nickels:    " << c.nickels << endl << endl;
+	}
+	//double calculateBalance(int totalCents);
 
 };
 
@@ -271,12 +367,13 @@ public:
 		purchase = items[index].price;
 		bool valid;
 
-		change_amount = (100 - purchase)/100;
+		change_amount = 100 - purchase;
 
 		cout << "Please insert a one-dollar bill. " << endl;
 		cout << "Processing your purchase ..." << endl;
 		cout << currentBalance << endl;
-		if (currentBalance >= change_amount)
+		cout << change_amount << endl;
+		if (currentBalance >= (change_amount/100))
 		{
 			valid = makeChangesOfdollar(change_amount, currentCoin, change);
 			cout << "Your change of " << change_amount << " cents is given as: " << endl;
