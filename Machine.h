@@ -83,7 +83,9 @@ public:
 		/*printf("This is machineA\n")*/;
 	}
 	//virtual void acceptMoney() override;
-	
+	virtual bool acceptMoney(int index);
+	bool makeChangesOfdollar(int amount, Coins &machine, Coins &back);
+	void printCoin(Coins c);
 
 };
 
