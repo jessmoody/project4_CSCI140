@@ -6,6 +6,11 @@
 
 using namespace std;
 
+void MachineC::machineAccepts()
+{
+	cout << "This machine accepts credit card only." << endl;
+}
+
 bool MachineC::validateCreditCard(string n)
 {
 	int size = n.length();

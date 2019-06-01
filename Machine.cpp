@@ -89,6 +89,11 @@ int Machine::findItem(string s)
 	return -1;
 }
 
+void Machine::machineAccepts()
+{
+	cout << "This machine accepts..." << endl;
+}
+
 void Machine::outputItemInfo(string userInput)
 {
 	int index2;

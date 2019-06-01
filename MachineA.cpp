@@ -6,6 +6,11 @@
 
 using namespace std;
 
+void MachineA::machineAccepts()
+{
+	cout << "This machine accepts one-dollar bill only." << endl;
+}
+
 bool MachineA::acceptMoney(int index)
 {
 
@@ -14,13 +19,14 @@ bool MachineA::acceptMoney(int index)
 	purchase = items[index].price;
 	bool valid;
 
-	change_amount = 100 - purchase;
+	change_amount = (100 - purchase) / 100;
 
 	cout << "Please insert a one-dollar bill. " << endl;
 	cout << "Processing your purchase ..." << endl;
+	cout << currentBalance << endl;
 	if (currentBalance >= change_amount)
 	{
-		valid = makeChangesOfdollar(change_amount, inputCoin, change);
+		valid = makeChangesOfdollar(change_amount, currentCoin, change);
 		cout << "Your change of " << change_amount << " cents is given as: " << endl;
 		printCoin(change);
 		/*count++;

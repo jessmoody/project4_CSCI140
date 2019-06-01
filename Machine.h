@@ -59,6 +59,7 @@ public:
 	// temporary function to print lines after 
 	// "select an item" in user interface
 	void outputItemInfo(string userInput);
+	virtual void machineAccepts();
 	virtual bool acceptMoney(int index)
 	{
 		cout << "acceptMoney in Machine class" << endl;
@@ -76,13 +77,14 @@ public:
 class MachineA : public Machine
 {
 private:
-
+	Coins change;
 public:
 	MachineA()
 	{
 		/*printf("This is machineA\n")*/;
 	}
 	//virtual void acceptMoney() override;
+	virtual void machineAccepts();
 	virtual bool acceptMoney(int index);
 	bool makeChangesOfdollar(int amount, Coins &machine, Coins &back);
 	void printCoin(Coins c);
@@ -99,6 +101,7 @@ public:
 		/*printf("This is machineB\n")*/;
 
 	}
+	virtual void machineAccepts();
 	//virtual void acceptMoney() override;
 };
 
@@ -113,6 +116,7 @@ public:
 	}
 	//double calculateBalance(int totalCents);
 	bool validateCreditCard(string n);
+	virtual void machineAccepts();
 	virtual bool acceptMoney(int index); /*override*/
 	virtual double calcBalance(Coins c, int dollars);
 };

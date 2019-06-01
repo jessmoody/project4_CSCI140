@@ -99,6 +99,7 @@ void MachineSystem::purchase()
 		MachineIndex = findMachine(MachineSelection);
 		if (MachineIndex != -1)
 		{
+			pM[MachineIndex]->machineAccepts();
 			pM[MachineIndex]->printAvailableItems();
 			cout << "Select an item --> ";
 			cin >> itemSelection;
