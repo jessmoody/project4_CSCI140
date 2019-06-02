@@ -83,7 +83,6 @@ public:
 	{
 		/*printf("This is machineA\n")*/;
 	}
-	//virtual void acceptMoney() override;
 	virtual void machineAccepts();
 	virtual bool acceptMoney(int index);
 	bool makeChangesOfdollar(int amount, Coins &machine, Coins &back);
@@ -94,6 +93,7 @@ public:
 class MachineB : public Machine
 {
 private:
+	Coins change;
 	
 public:
 	MachineB()
@@ -102,7 +102,9 @@ public:
 
 	}
 	virtual void machineAccepts();
-	//virtual void acceptMoney() override;
+	virtual bool acceptMoney(int index);
+	bool makeChangesOfCoins(int amount, int q, int d, int n, Coins &machine, Coins &back);
+	void printCoin(Coins c);
 };
 
 class MachineC : public Machine

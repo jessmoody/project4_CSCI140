@@ -28,7 +28,7 @@ bool MachineA::acceptMoney(int index)
 	cin >> numberD;
 	if (numberD == 0)
 	{
-		cout << "You choose to cancle your selection. \n";
+		cout << "You choose to cancel your selection. \n";
 		return false;
 	}
 	totalInput = numberD;
