@@ -1,3 +1,6 @@
+// Changed initializeBalance
+// New function: totalCoins
+
 #pragma once
 
 #include "Inventory.h"
@@ -48,10 +51,7 @@ public:
 	// ONLY call this in initialization
 	void setItem(string s, int n, Items OneProd);
 	void setMachineName(string s1, int n);
-	// *****Change 5/27*****
-	// Calculate the machine balance in dollars
-	// Can calculate the initial and current balance
-	// ***** Change 5/28: change it to virtual *****
+	int totalCoins(Coins c);	// Calculate how many cents in the coins
 	double InitializeBalances();
 	string getModel(){	return model;	}
 	string getMachineName() { return machineName; }
@@ -138,5 +138,6 @@ public:
 	int findMachine(string s);
 	void printAllMachines();
 	void printMInv();
+	void printAvaliable();
 	~MachineSystem();
 };
