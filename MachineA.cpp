@@ -46,7 +46,7 @@ bool MachineA::acceptMoney(int index)
 	if (totalCoins(currentCoin) >= change_amount)
 	{
 		valid = makeChangesOfdollar(change_amount, currentCoin, change);
-		if (makeChangesOfdollar)
+		if (valid)
 		{
 			// Update data in machine
 			transactions++;
@@ -65,7 +65,6 @@ bool MachineA::acceptMoney(int index)
 			return true;
 		}
 	}
-	return false;
 	//if (currentBalance >= (static_cast<double>(change_amount) / 100))
 	//{
 	//	valid = makeChangesOfdollar(change_amount, currentCoin, change);
@@ -81,13 +80,12 @@ bool MachineA::acceptMoney(int index)
 	//	countDollar++;*/
 	//	return true;
 	//}
-	else
-	{
-		cout << "Insufficient changes! " << endl;
-		cout << "Your transaction cannot be processed. " << endl;
-		cout << "Please take back your dollar bill. " << endl;
-		return false;
-	}
+
+	cout << "Insufficient changes! " << endl;
+	cout << "Your transaction cannot be processed. " << endl;
+	cout << "Please take back your dollar bill. " << endl;
+	return false;
+
 }
 
 bool MachineA::makeChangesOfdollar(int amount, Coins &machine, Coins &back)
@@ -186,7 +184,6 @@ bool MachineA::makeChangesOfdollar(int amount, Coins &machine, Coins &back)
 	//	}
 
 	//}
-	return valid;
 }
 
 void MachineA::printCoin(Coins c)
