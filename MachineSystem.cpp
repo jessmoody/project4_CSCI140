@@ -6,21 +6,25 @@
 
 using namespace std;
 
-//Inventory Product;
+MachineSystem::MachineSystem()
+{
+	cout << "Initialize machines. Please wait..." << endl;
+	readFile();
+	cout << "Machines are ready." << endl;
+}
 
 void MachineSystem::readFile()
 {
-	ifstream infile;	      // Input file to read values into array
-	infile.open("C:\\Users\\jessm\\Documents\\GitHub\\project4_CSCI140\\machines.txt", ios::in);
+	ifstream infile;	      
+	infile.open("machines.txt", ios::in);
 
 	string model;
 	int numMachines;
 	int quarters, dimes, nickels;
-	int numItems, itemID, quantity;		// amount of items of that type that can be put into the machine
+	int numItems, itemID, quantity;		
 	string selection;
 	int count = 0;
 
-	// Change?
 	Inventory SystemProducts;
 
 	if (!infile)
@@ -30,7 +34,7 @@ void MachineSystem::readFile()
 	}
 	else
 	{
-		while (infile >> model)
+		while (infile >> model && model != "100D")
 		{
 			infile >> numMachines;
 			
@@ -61,21 +65,17 @@ void MachineSystem::readFile()
 
 				infile >> quarters >> dimes >> nickels;
 				pM[count]->setCoins(quarters, dimes, nickels);
-				pM[count]->InitializeBalances();
+				pM[count]->initializeBalances();
 
 				infile >> numItems;
 				pM[count]->setNumItems(numItems);
 
 				for (int i = 0; i < numItems; i++)
 				{
-					// create item object or struct
 
 					infile >> selection >> itemID >> quantity;
 
-					// SystemProducts.getDescription(itemID);
-
 					Items OneInventory = SystemProducts.checkOut(itemID, quantity);
-					//pM[count]->setProduct(selection, OneInventory, i);
 					pM[count]->setItem(selection, i, OneInventory);
 
 				}
@@ -88,32 +88,53 @@ void MachineSystem::readFile()
 		infile.close();
 }
 
-void MachineSystem::purchase(string s)
+void MachineSystem::printAvaliable()
+{
+	cout << "Available machines: ";
+	cout << pM[0]->getMachineName();
+	for (int i = 0; i < totalMachines; i++)
+	{
+		cout << ", " << pM[i]->getMachineName();
+	}
+	cout << endl;
+}
+
+void MachineSystem::purchase()
 {
 	int MachineIndex, itemIndex;
-	string userInput;
-	MachineIndex = findMachine(s);
-	if (MachineIndex != -1)
+	string MachineSelection, itemSelection;
+	cout << "Select a machine--> ";
+	cin >> MachineSelection;
+	while (MachineSelection != "spring19")
 	{
-		pM[MachineIndex]->printAvailableItems();
-		cout << "Select an item --> ";
-		cin >> userInput;
-		itemIndex = pM[MachineIndex]->findItem(userInput);
-		if (itemIndex == -1)
+		MachineIndex = findMachine(MachineSelection);
+		if (MachineIndex != -1)
 		{
-			cout << "Your selection is not avaliable in the machine" << endl;
-			return;
+			pM[MachineIndex]->machineAccepts();
+			pM[MachineIndex]->printAvailableItems();
+			cout << "Select an item --> ";
+			cin >> itemSelection;
+			itemIndex = pM[MachineIndex]->findItem(itemSelection);
+			if (itemIndex != -1)
+			{
+				pM[MachineIndex]->outputItemInfo(itemSelection);
+				pM[MachineIndex]->acceptMoney(itemIndex);
+			}
+			else
+			{
+				cout << "Your selection is not avaliable in this machine" << endl;
+			}
 		}
-		pM[MachineIndex]->outputItemInfo(userInput);
-	}
-	else
-	{
-		cout << "Machine not found" << endl;
-		return;
-	}
+		else
+		{
+			cout << "This Machine is not in the system" << endl;
+		}
 
-	pM[MachineIndex]->acceptMoney(itemIndex);
+		cout << "\nSelect a machine--> ";
+		cin >> MachineSelection;
+	}
 }
+
 
 int MachineSystem::findMachine(string s)
 {
@@ -138,9 +159,7 @@ void MachineSystem::printAllMachines()
 
 MachineSystem::~MachineSystem()
 {
-
-	// TODO: remove this before submission
-	ofstream out("machinesOutput.txt");
+	ofstream out("reports.txt");
 	out.close();
 
 	cout << "Report is generating..." << endl;

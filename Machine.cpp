@@ -66,10 +66,16 @@ void Machine::setMachineName(string s1, int n)
 	machineName = s1 + s2;
 }
 
-double Machine::InitializeBalances()
+int Machine::totalCents(Coins c)
+{
+	return c.quarters * 25 + c.dimes * 10 + c.nickels * 5;
+}
+
+double Machine::initializeBalances()
 {
 	// Maybe we can declare constants
-	double balance = initialDollars + 0.25 * initialCoin.quarters + 0.10 * initialCoin.dimes + 0.05 * initialCoin.nickels;
+	double balance = initialDollars + (double)totalCents(initialCoin) / 100;
+	//double balance = initialDollars + 0.25 * initialCoin.quarters + 0.10 * initialCoin.dimes + 0.05 * initialCoin.nickels;
 	initialBalance = currentBalance = balance;
 	return balance;
 }
@@ -87,6 +93,11 @@ int Machine::findItem(string s)
 		}
 	}
 	return -1;
+}
+
+void Machine::machineAccepts()
+{
+	cout << "This machine accepts..." << endl;
 }
 
 void Machine::outputItemInfo(string userInput)
@@ -136,21 +147,6 @@ void Machine::printMachine()
 			<< "Quantity: " << items[i].currentQuantity << endl		// *****Change 5/27*****
 			<< "Description: " << items[i].description << endl
 			<< "Price: " << items[i].price << endl << endl;
-	}
-}
-
-//TODO: remove this before submission
-void Machine::printInventory()
-{
-	cout << "Machine inventory:\n"
-		<< "Code        Id       Description             Initial     Current" << endl;
-	for (int i = 0; i < numItems; i++)
-	{
-		cout << setw(4) << items[i].selection
-			<< setw(10) << items[i].itemID << "       "
-			<< left << setw(27) << items[i].description
-			<< right << setw(2) << items[i].initialQuantity
-			<< setw(12) << items[i].currentQuantity << endl;
 	}
 }
 

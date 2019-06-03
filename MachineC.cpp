@@ -6,6 +6,11 @@
 
 using namespace std;
 
+void MachineC::machineAccepts()
+{
+	cout << "This machine accepts credit card only." << endl;
+}
+
 bool MachineC::validateCreditCard(string n)
 {
 	int size = n.length();
@@ -46,12 +51,8 @@ bool MachineC::validateCreditCard(string n)
 	return valid;
 }
 
-bool MachineC::acceptMoney(int index) /*override*/
+bool MachineC::acceptMoney(int index) 
 {
-	// Validate credit card
-	// Need to try different test cases:
-	// 1 fail 1 success, 
-	// 2 fails
 	string card;
 	bool valid;
 	int attempt = 0;
