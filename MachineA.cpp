@@ -7,12 +7,6 @@
 
 using namespace std;
 
-
-//int MachineA::totalCoins()
-//{
-//	return currentCoin.quarters * 25 + currentCoin.dimes * 10 + currentCoin.nickels * 5;
-//}
-
 void MachineA::machineAccepts()
 {
 	cout << "This machine accepts one-dollar bill only." << endl;
@@ -20,17 +14,11 @@ void MachineA::machineAccepts()
 
 bool MachineA::acceptMoney(int index)
 {
-	/*
-	If the user buy something that is less than 1 dollar,
-	But they choose to insert 2 dollars,
-	Do we return the extra 1 dollar first,
-	Then make change?
-	*/
 	int purchase, change_amount, numberD;
 	int totalInput;
 	purchase = items[index].price;
 	bool valid;
-	cout << "Please insert your money ---> " << endl;
+	cout << "Please insert your money --> ";
 	cin >> numberD;
 	if (numberD == 0)
 	{
@@ -55,9 +43,9 @@ bool MachineA::acceptMoney(int index)
 	cout << currentBalance << endl;
 	cout << change_amount << endl;
 
-	if (totalCoins(currentCoin) >= change_amount)
+	if (totalCents(currentCoin) >= change_amount)
 	{
-		valid = makeChangesOfdollar(change_amount, currentCoin, change);
+		valid = makeChanges(change_amount, currentCoin, change);
 		if (valid)
 		{
 			// Update data in machine
@@ -77,21 +65,6 @@ bool MachineA::acceptMoney(int index)
 			return true;
 		}
 	}
-	//if (currentBalance >= (static_cast<double>(change_amount) / 100))
-	//{
-	//	valid = makeChangesOfdollar(change_amount, currentCoin, change);
-	//	cout << "Your change of " << change_amount << " cents is given as: " << endl;
-	//	printCoin(change);
-	//	transactions++;
-	//	items[index].currentQuantity--;
-	//	currentDollars += totalInput / 100;
-	//	totalCost += (static_cast<double>(purchase) / 100);
-	//	currentBalance = currentBalance - (static_cast<double>(change_amount) / 100);
-	//	cout << currentBalance << endl;
-	//	/*count++;
-	//	countDollar++;*/
-	//	return true;
-	//}
 
 	cout << "Insufficient changes! " << endl;
 	cout << "Your transaction cannot be processed. " << endl;
@@ -100,7 +73,7 @@ bool MachineA::acceptMoney(int index)
 
 }
 
-bool MachineA::makeChangesOfdollar(int amount, Coins &machine, Coins &back)
+bool MachineA::makeChanges(int amount, Coins &machine, Coins &back)
 {
 	//bool valid = true;
 	int total1/*, total2*/;
@@ -142,60 +115,6 @@ bool MachineA::makeChangesOfdollar(int amount, Coins &machine, Coins &back)
 			return false;
 		}
 	}
-
-	//if (machine.quarters > 0)
-	//{
-	//	// Calculate the quarters
-
-	//	// Calculate the dimes
-	//	if (machine.dimes > 0 && machine.nickels > 0)
-	//	{
-	//		back.quarters = amount / 25;
-	//		total1 = amount - (back.quarters * 25);
-	//		back.dimes = total1 / 10;
-	//		total2 = total1 - (back.dimes * 10);
-	//		// Calculate the nickels
-	//		back.nickels = total2 / 5;
-	//		machine.dimes -= back.dimes;
-	//		machine.nickels -= back.nickels;
-	//		machine.quarters -= back.quarters;
-	//	}
-	//	else if (machine.dimes > 0 && machine.nickels <= 0)
-	//	{
-	//		back.dimes = (amount / 10) - 2;
-	//		total1 = amount - (back.dimes * 10);
-	//		back.quarters = total1 / 25;
-	//		machine.dimes -= back.dimes;
-	//		machine.quarters -= back.quarters;
-	//	}
-	//}
-	//else
-	//{
-	//	if (machine.dimes > 0)
-	//	{
-	//		// Calculate the dimes
-	//		back.dimes = amount / 10;
-	//		total1 = amount - (back.dimes * 10);
-	//		// Calculate the nickels
-	//		back.nickels = total1 / 5;
-	//		machine.dimes -= back.dimes;
-	//		machine.nickels -= back.nickels;
-	//	}
-	//	else
-	//	{
-	//		if (machine.nickels > 0)
-	//		{
-	//			// Calculate the nickels
-	//			back.nickels = amount / 5;
-	//			machine.nickels -= back.nickels;
-	//		}
-	//		else
-	//		{
-	//			cout << "We run out the quarters, dimes, and nickels." << endl;
-	//		}
-	//	}
-
-	//}
 }
 
 void MachineA::printCoin(Coins c)
