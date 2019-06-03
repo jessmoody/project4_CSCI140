@@ -1,3 +1,5 @@
+// Rename function: totalCoins -> totalCents
+
 // Changed initializeBalance
 // New function: totalCoins
 
@@ -12,6 +14,11 @@
 using namespace std;
 
 const int SIZE = 8;
+const int QUARTER = 25,
+			DIME = 10,
+			NICKLE = 5,
+			DOLLAR = 100;
+
 
 class Machine
 {
@@ -51,7 +58,7 @@ public:
 	// ONLY call this in initialization
 	void setItem(string s, int n, Items OneProd);
 	void setMachineName(string s1, int n);
-	int totalCoins(Coins c);	// Calculate how many cents in the coins
+	int totalCents(Coins c);	// Calculate how many cents in the coins
 	double InitializeBalances();
 	string getModel(){	return model;	}
 	string getMachineName() { return machineName; }
@@ -65,6 +72,9 @@ public:
 		cout << "acceptMoney in Machine class" << endl;
 		return false;
 	}
+	//bool acceptDollar(int index);
+	//bool acceptCoin(int index);
+	//bool acceptCard(int index);
 	virtual void printMachine();
 	void printAvailableItems();
 	//TODO: remove this before submission	
@@ -76,7 +86,7 @@ public:
 
 class MachineA : public Machine
 {
-private:
+protected:
 	Coins change;
 public:
 	MachineA()
@@ -86,15 +96,15 @@ public:
 	//virtual void acceptMoney() override;
 	virtual void machineAccepts();
 	virtual bool acceptMoney(int index);
-	bool makeChangesOfdollar(int amount, Coins &machine, Coins &back);
+	bool makeChanges(int amount, Coins &machine, Coins &back);
 	void printCoin(Coins c);
 
 
 };
 
-class MachineB : public Machine
+class MachineB : public MachineA
 {
-private:
+//private:
 	
 public:
 	MachineB()
@@ -104,12 +114,14 @@ public:
 	}
 	virtual void machineAccepts();
 	//virtual void acceptMoney() override;
+	bool acceptCoins(int index);
+	virtual bool acceptMoney(int index);
 };
 
 class MachineC : public Machine
 {
-private:
-	string cardEntered;
+//private:
+//	string cardEntered;
 public:
 	MachineC()
 	{
@@ -119,7 +131,14 @@ public:
 	bool validateCreditCard(string n);
 	virtual void machineAccepts();
 	virtual bool acceptMoney(int index); /*override*/
-	virtual double calcBalance(Coins c, int dollars);
+	double calcBalance(Coins c, int dollars);
+};
+
+class MachineD : public MachineB, public MachineC
+{
+public:
+	virtual void machineAccepts();
+	virtual bool acceptMoney(int index);
 };
 
 class MachineSystem
