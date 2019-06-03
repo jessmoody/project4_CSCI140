@@ -45,39 +45,6 @@ public:
 	// from the machines
 	Items checkOut(int idReq, int quanReq);
 
-	//void setId(int code)
-	//{
-	//	for (int i = 0; i < NUMOFPROD; i++)
-	//	{
-	//		InventoryList[i].id = code;
-	//	}
-	//}
-	//void setAmount(int q)
-	//{
-	//	for (int i = 0; i < NUMOFPROD; i++)
-	//	{
-	//		InventoryList[i].quantity = q;
-	//	}
-	//}
-	//void setPrice(int price)
-	//{
-	//	for (int i = 0; i < NUMOFPROD; i++)
-	//	{
-	//		InventoryList[i].price = price;
-	//	}
-	//}
-	//void setName(string name)
-	//{
-	//	for (int i = 0; i < NUMOFPROD; i++)
-	//	{
-	//		InventoryList[i].menu = name;
-	//	}
-	//}
-	//void display() const
-	//{
-	//	for (int i = 0; i < 23; i++)
-	//		cout << InventoryList[i].id << InventoryList[i].quantity << InventoryList[i].price << InventoryList[i].menu << endl;
-	//}
 };
 
 
