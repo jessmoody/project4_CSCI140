@@ -20,17 +20,11 @@ void MachineA::machineAccepts()
 
 bool MachineA::acceptMoney(int index)
 {
-	/*
-	If the user buy something that is less than 1 dollar,
-	But they choose to insert 2 dollars,
-	Do we return the extra 1 dollar first,
-	Then make change?
-	*/
 	int purchase, change_amount, numberD;
 	int totalInput;
 	purchase = items[index].price;
 	bool valid;
-	cout << "Please insert your money ---> " << endl;
+	cout << "Please insert your money --> ";
 	cin >> numberD;
 	if (numberD == 0)
 	{
@@ -55,9 +49,9 @@ bool MachineA::acceptMoney(int index)
 	cout << currentBalance << endl;
 	cout << change_amount << endl;
 
-	if (totalCoins(currentCoin) >= change_amount)
+	if (totalCents(currentCoin) >= change_amount)
 	{
-		valid = makeChangesOfdollar(change_amount, currentCoin, change);
+		valid = makeChanges(change_amount, currentCoin, change);
 		if (valid)
 		{
 			// Update data in machine
@@ -100,7 +94,7 @@ bool MachineA::acceptMoney(int index)
 
 }
 
-bool MachineA::makeChangesOfdollar(int amount, Coins &machine, Coins &back)
+bool MachineA::makeChanges(int amount, Coins &machine, Coins &back)
 {
 	//bool valid = true;
 	int total1/*, total2*/;
