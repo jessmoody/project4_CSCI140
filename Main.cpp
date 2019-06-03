@@ -8,10 +8,12 @@ using namespace std;
 
 int main(void)
 {
+	// Print program infomation
 	cout << "Vending Machine by Jessica Moody, Phuong Nguyen, and Aiqi You\n" << endl;
 
 	cout << fixed << setprecision(2);
 
+	// Initialization
 	string code;
 	do
 	{
@@ -21,8 +23,10 @@ int main(void)
 
 	MachineSystem System;
 
+	// Print Avaliable Machines
+	// Note: currently machine 100D1 is not avaliable, but we are still printing it
 	System.printAvaliable();
 	cout << endl;
-
+	// Running the machine
 	System.purchase();
 }

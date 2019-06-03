@@ -51,8 +51,12 @@ bool MachineC::validateCreditCard(string n)
 	return valid;
 }
 
-bool MachineC::acceptMoney(int index) 
+bool MachineC::acceptMoney(int index) /*override*/
 {
+	// Validate credit card
+	// Need to try different test cases:
+	// 1 fail 1 success, 
+	// 2 fails
 	string card;
 	bool valid;
 	int attempt = 0;

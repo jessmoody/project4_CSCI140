@@ -15,16 +15,17 @@ MachineSystem::MachineSystem()
 
 void MachineSystem::readFile()
 {
-	ifstream infile;	      
-	infile.open("machines.txt", ios::in);
+	ifstream infile;	      // Input file to read values into array
+	infile.open("C:\\Users\\jessm\\Documents\\GitHub\\project4_CSCI140\\machines.txt", ios::in);
 
 	string model;
 	int numMachines;
 	int quarters, dimes, nickels;
-	int numItems, itemID, quantity;		
+	int numItems, itemID, quantity;		// amount of items of that type that can be put into the machine
 	string selection;
 	int count = 0;
 
+	// Change?
 	Inventory SystemProducts;
 
 	if (!infile)
@@ -34,7 +35,7 @@ void MachineSystem::readFile()
 	}
 	else
 	{
-		while (infile >> model && model != "100D")
+		while (infile >> model)
 		{
 			infile >> numMachines;
 			
@@ -54,6 +55,10 @@ void MachineSystem::readFile()
 				{
 					pM[count] = new MachineC;
 				}
+				//else if (model == "100D")
+				//{
+				//	pM[count] = new MachineD;
+				//}
 				else
 				{
 					pM[count] = new Machine;
@@ -72,10 +77,14 @@ void MachineSystem::readFile()
 
 				for (int i = 0; i < numItems; i++)
 				{
+					// create item object or struct
 
 					infile >> selection >> itemID >> quantity;
 
+					// SystemProducts.getDescription(itemID);
+
 					Items OneInventory = SystemProducts.checkOut(itemID, quantity);
+					//pM[count]->setProduct(selection, OneInventory, i);
 					pM[count]->setItem(selection, i, OneInventory);
 
 				}
@@ -91,7 +100,10 @@ void MachineSystem::readFile()
 void MachineSystem::printAvaliable()
 {
 	cout << "Available machines: ";
+	// Print the machines with two steps to deal with commas 
+	// Print the first machine
 	cout << pM[0]->getMachineName();
+	// Print the rest
 	for (int i = 0; i < totalMachines; i++)
 	{
 		cout << ", " << pM[i]->getMachineName();
@@ -159,7 +171,7 @@ void MachineSystem::printAllMachines()
 
 MachineSystem::~MachineSystem()
 {
-	ofstream out("reports.txt");
+	ofstream out("machinesOutput.txt");
 	out.close();
 
 	cout << "Report is generating..." << endl;
