@@ -142,10 +142,7 @@ protected:
 	int totalMachines = 0;
 
 public:
-	MachineSystem()
-	{
-		readFile();
-	}
+	MachineSystem();
 	void readFile();
 	void purchase();
 	int findMachine(string s);

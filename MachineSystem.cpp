@@ -6,7 +6,12 @@
 
 using namespace std;
 
-//Inventory Product;
+MachineSystem::MachineSystem()
+{
+	cout << "Initialize machines. Please wait..." << endl;
+	readFile();
+	cout << "Machines are ready." << endl;
+}
 
 void MachineSystem::readFile()
 {
@@ -86,6 +91,20 @@ void MachineSystem::readFile()
 		}
 	}
 		infile.close();
+}
+
+void MachineSystem::printAvaliable()
+{
+	cout << "Available machines: ";
+	// Print the machines with two steps to deal with commas 
+	// Print the first machine
+	cout << pM[0]->getMachineName();
+	// Print the rest
+	for (int i = 0; i < totalMachines; i++)
+	{
+		cout << ", " << pM[i]->getMachineName();
+	}
+	cout << endl;
 }
 
 void MachineSystem::purchase()

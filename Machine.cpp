@@ -66,7 +66,7 @@ void Machine::setMachineName(string s1, int n)
 	machineName = s1 + s2;
 }
 
-int Machine::totalCoins(Coins c)
+int Machine::totalCents(Coins c)
 {
 	return c.quarters * 25 + c.dimes * 10 + c.nickels * 5;
 }
@@ -74,7 +74,7 @@ int Machine::totalCoins(Coins c)
 double Machine::initializeBalances()
 {
 	// Maybe we can declare constants
-	double balance = initialDollars + (double)totalCoins(initialCoin) / 100;
+	double balance = initialDollars + (double)totalCents(initialCoin) / 100;
 	//double balance = initialDollars + 0.25 * initialCoin.quarters + 0.10 * initialCoin.dimes + 0.05 * initialCoin.nickels;
 	initialBalance = currentBalance = balance;
 	return balance;
