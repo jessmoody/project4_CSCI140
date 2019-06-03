@@ -15,17 +15,16 @@ MachineSystem::MachineSystem()
 
 void MachineSystem::readFile()
 {
-	ifstream infile;	      // Input file to read values into array
+	ifstream infile;	      
 	infile.open("machines.txt", ios::in);
 
 	string model;
 	int numMachines;
 	int quarters, dimes, nickels;
-	int numItems, itemID, quantity;		// amount of items of that type that can be put into the machine
+	int numItems, itemID, quantity;		
 	string selection;
 	int count = 0;
 
-	// Change?
 	Inventory SystemProducts;
 
 	if (!infile)
@@ -35,7 +34,7 @@ void MachineSystem::readFile()
 	}
 	else
 	{
-		while (infile >> model)
+		while (infile >> model && model != "100D")
 		{
 			infile >> numMachines;
 			
@@ -73,14 +72,10 @@ void MachineSystem::readFile()
 
 				for (int i = 0; i < numItems; i++)
 				{
-					// create item object or struct
 
 					infile >> selection >> itemID >> quantity;
 
-					// SystemProducts.getDescription(itemID);
-
 					Items OneInventory = SystemProducts.checkOut(itemID, quantity);
-					//pM[count]->setProduct(selection, OneInventory, i);
 					pM[count]->setItem(selection, i, OneInventory);
 
 				}
@@ -96,10 +91,7 @@ void MachineSystem::readFile()
 void MachineSystem::printAvaliable()
 {
 	cout << "Available machines: ";
-	// Print the machines with two steps to deal with commas 
-	// Print the first machine
 	cout << pM[0]->getMachineName();
-	// Print the rest
 	for (int i = 0; i < totalMachines; i++)
 	{
 		cout << ", " << pM[i]->getMachineName();
@@ -167,7 +159,7 @@ void MachineSystem::printAllMachines()
 
 MachineSystem::~MachineSystem()
 {
-	ofstream out("machinesOutput.txt");
+	ofstream out("reports.txt");
 	out.close();
 
 	cout << "Report is generating..." << endl;

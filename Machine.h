@@ -1,8 +1,3 @@
-// Rename function: totalCoins -> totalCents
-
-// Changed initializeBalance
-// New function: totalCoins
-
 #pragma once
 
 #include "Inventory.h"
@@ -16,7 +11,7 @@ using namespace std;
 const int SIZE = 8;
 const int QUARTER = 25,
 			DIME = 10,
-			NICKLE = 5,
+			NICKEL = 5,
 			DOLLAR = 100;
 
 
@@ -36,7 +31,7 @@ protected:
 	int initialDollars = 0;
 	int currentDollars = 0;
 	int transactions = 0;
-	double totalCost = 0; // In dollars
+	double totalCost = 0;
 	double initialBalance = 0;
 	double currentBalance = 0;
 	int numItems;
@@ -55,10 +50,9 @@ public:
 	}
 	void setCoins(int q, int d, int n);
 	void setNumItems(int ni) { numItems = ni; }
-	// ONLY call this in initialization
 	void setItem(string s, int n, Items OneProd);
 	void setMachineName(string s1, int n);
-	int totalCents(Coins c);	// Calculate how many cents in the coins
+	int totalCents(Coins c);	
 	double initializeBalances();
 	string getModel(){	return model;	}
 	string getMachineName() { return machineName; }
@@ -70,13 +64,8 @@ public:
 		cout << "acceptMoney in Machine class" << endl;
 		return false;
 	}
-	//bool acceptDollar(int index);
-	//bool acceptCoin(int index);
-	//bool acceptCard(int index);
 	virtual void printMachine();
 	void printAvailableItems();
-	// Destructor
-	// Open a file and record the machine information
 	~Machine();
 };
 
@@ -85,54 +74,33 @@ class MachineA : public Machine
 protected:
 	Coins change;
 public:
-	MachineA()
-	{
-		/*printf("This is machineA\n")*/;
-	}
+	MachineA() { ; }
 	virtual void machineAccepts();
 	virtual bool acceptMoney(int index);
-	bool makeChanges(int amount, Coins &machine, Coins &back);
+	bool makeChange(int amount, Coins &machine, Coins &back);
 	void printCoin(Coins c);
 
 };
 
 class MachineB : public MachineA
 {
-//private:
 	
 public:
-	MachineB()
-	{
-		/*printf("This is machineB\n")*/;
-
-	}
+	MachineB() { ; }
 	virtual void machineAccepts();
-	//virtual void acceptMoney() override;
 	bool acceptCoins(int index);
 	virtual bool acceptMoney(int index);
 };
 
 class MachineC : public Machine
 {
-//private:
-//	string cardEntered;
+
 public:
-	MachineC()
-	{
-		/*printf("This is machineC\n")*/;
-	}
-	//double calculateBalance(int totalCents);
+	MachineC() { ; }
 	bool validateCreditCard(string n);
 	virtual void machineAccepts();
-	virtual bool acceptMoney(int index); /*override*/
+	virtual bool acceptMoney(int index); 
 	double calcBalance(Coins c, int dollars);
-};
-
-class MachineD : public MachineB, public MachineC
-{
-public:
-	virtual void machineAccepts();
-	virtual bool acceptMoney(int index);
 };
 
 class MachineSystem

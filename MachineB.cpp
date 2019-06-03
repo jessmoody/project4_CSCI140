@@ -30,17 +30,17 @@ bool MachineB::acceptCoins(int index)
 	int totalCoins = 0;
 	while (coins != 0)
 	{
-		if (coins == 25)
+		if (coins == QUARTER)
 		{
 			q++;
 			totalCoins += coins;
 		}
-		else if (coins == 10)
+		else if (coins == DIME)
 		{
 			d++;
 			totalCoins += coins;
 		}
-		else if (coins == 5)
+		else if (coins == NICKEL)
 		{
 			n++;
 			totalCoins += coins;
@@ -55,7 +55,7 @@ bool MachineB::acceptCoins(int index)
 	cout << change_amount << endl;
 	if (totalCents(currentCoin) >= change_amount)
 	{
-		valid = makeChanges(change_amount, currentCoin, change);
+		valid = makeChange(change_amount, currentCoin, change);
 		if (valid)
 		{
 			// Update data in machine
@@ -64,8 +64,7 @@ bool MachineB::acceptCoins(int index)
 			currentCoin.quarters -= change.quarters;
 			currentCoin.dimes -= change.dimes;
 			currentCoin.nickels -= change.nickels;
-			//currentDollars += totalInput / 100;
-			double priceItems = (static_cast<double>(purchase) / 100);// total price of items being purchased
+			double priceItems = (static_cast<double>(purchase) / DOLLAR);// total price of items being purchased
 			totalCost += priceItems;
 			currentBalance += priceItems;
 
@@ -76,7 +75,7 @@ bool MachineB::acceptCoins(int index)
 		}
 
 
-		cout << "Insufficient changes! " << endl;
+		cout << "Insufficient change! " << endl;
 		cout << "Your transaction cannot be processed. " << endl;
 		cout << "Please take back your coins. " << endl;
 		return false;

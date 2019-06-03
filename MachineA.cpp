@@ -45,7 +45,7 @@ bool MachineA::acceptMoney(int index)
 
 	if (totalCents(currentCoin) >= change_amount)
 	{
-		valid = makeChanges(change_amount, currentCoin, change);
+		valid = makeChange(change_amount, currentCoin, change);
 		if (valid)
 		{
 			// Update data in machine
@@ -54,8 +54,8 @@ bool MachineA::acceptMoney(int index)
 			currentCoin.quarters -= change.quarters;
 			currentCoin.dimes -= change.dimes;
 			currentCoin.nickels -= change.nickels;
-			currentDollars += totalInput / 100;			
-			double priceDollar = (static_cast<double>(purchase) / 100);
+			currentDollars += totalInput / DOLLAR;			
+			double priceDollar = (static_cast<double>(purchase) / DOLLAR);
 			totalCost += priceDollar;
 			currentBalance += priceDollar;
 
@@ -66,29 +66,28 @@ bool MachineA::acceptMoney(int index)
 		}
 	}
 
-	cout << "Insufficient changes! " << endl;
+	cout << "Insufficient change! " << endl;
 	cout << "Your transaction cannot be processed. " << endl;
 	cout << "Please take back your dollar bill. " << endl;
 	return false;
 
 }
 
-bool MachineA::makeChanges(int amount, Coins &machine, Coins &back)
+bool MachineA::makeChange(int amount, Coins &machine, Coins &back)
 {
-	//bool valid = true;
-	int total1/*, total2*/;
+	int total1;
 	back.quarters = 0;
 	back.dimes = 0;
 	back.nickels = 0;
 
 	// Calculate quarters, dimes, and nickles
 	total1 = amount;
-	back.quarters = min(total1 / 25, machine.quarters);
-	total1 -= back.quarters * 25;
-	back.dimes = min(total1 / 10, machine.dimes);
-	total1 -= back.dimes * 10;
-	back.nickels = min(total1 / 5, machine.nickels);
-	total1 -= back.nickels * 5;
+	back.quarters = min(total1 / QUARTER, machine.quarters);
+	total1 -= back.quarters * QUARTER;
+	back.dimes = min(total1 / DIME, machine.dimes);
+	total1 -= back.dimes * DIME;
+	back.nickels = min(total1 / NICKEL, machine.nickels);
+	total1 -= back.nickels * NICKEL;
 
 	if (total1 == 0)
 	{
@@ -100,10 +99,10 @@ bool MachineA::makeChanges(int amount, Coins &machine, Coins &back)
 		while (total1 != 0 && back.quarters > 0)
 		{
 			back.quarters--;
-			total1 += 25;
-			back.dimes = min(total1 / 10, machine.dimes);
-			total1 -= back.dimes * 10;
-			back.nickels = min(total1 / 5, machine.nickels);
+			total1 += QUARTER;
+			back.dimes = min(total1 / DIME, machine.dimes);
+			total1 -= back.dimes * DIME;
+			back.nickels = min(total1 / NICKEL, machine.nickels);
 			total1 -= back.nickels;
 		}
 		if (total1 == 0)
