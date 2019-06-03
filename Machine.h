@@ -56,8 +56,6 @@ public:
 	string getModel(){	return model;	}
 	string getMachineName() { return machineName; }
 	int findItem(string s);
-	// temporary function to print lines after 
-	// "select an item" in user interface
 	void outputItemInfo(string userInput);
 	virtual void machineAccepts();
 	virtual bool acceptMoney(int index)
@@ -67,8 +65,6 @@ public:
 	}
 	virtual void printMachine();
 	void printAvailableItems();
-	//TODO: remove this before submission	
-	void printInventory();
 	// Destructor
 	// Open a file and record the machine information
 	~Machine();
@@ -135,11 +131,9 @@ public:
 		readFile();
 	}
 	void readFile();
-	// function for user input in main - will be updated
 	void purchase();
 	int findMachine(string s);
 	void printAllMachines();
-	void printMInv();
 	void printAvaliable();
 	~MachineSystem();
 };

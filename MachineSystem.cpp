@@ -11,7 +11,7 @@ using namespace std;
 void MachineSystem::readFile()
 {
 	ifstream infile;	      // Input file to read values into array
-	infile.open("C:\\Users\\jessm\\Documents\\GitHub\\project4_CSCI140\\machines.txt", ios::in);
+	infile.open("machines.txt", ios::in);
 
 	string model;
 	int numMachines;
@@ -61,7 +61,7 @@ void MachineSystem::readFile()
 
 				infile >> quarters >> dimes >> nickels;
 				pM[count]->setCoins(quarters, dimes, nickels);
-				pM[count]->InitializeBalances();
+				pM[count]->initializeBalances();
 
 				infile >> numItems;
 				pM[count]->setNumItems(numItems);
@@ -146,15 +146,8 @@ void MachineSystem::printAllMachines()
 	}
 }
 
-void MachineSystem::printMInv()
-{
-	pM[0]->printInventory();
-}
-
 MachineSystem::~MachineSystem()
 {
-
-	// TODO: remove this before submission
 	ofstream out("machinesOutput.txt");
 	out.close();
 

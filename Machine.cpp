@@ -150,21 +150,6 @@ void Machine::printMachine()
 	}
 }
 
-//TODO: remove this before submission
-void Machine::printInventory()
-{
-	cout << "Machine inventory:\n"
-		<< "Code        Id       Description             Initial     Current" << endl;
-	for (int i = 0; i < numItems; i++)
-	{
-		cout << setw(4) << items[i].selection
-			<< setw(10) << items[i].itemID << "       "
-			<< left << setw(27) << items[i].description
-			<< right << setw(2) << items[i].initialQuantity
-			<< setw(12) << items[i].currentQuantity << endl;
-	}
-}
-
 // Destructor
 // Open a file and record the machine information
 Machine::~Machine()
