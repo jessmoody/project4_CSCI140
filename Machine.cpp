@@ -71,7 +71,7 @@ int Machine::totalCoins(Coins c)
 	return c.quarters * 25 + c.dimes * 10 + c.nickels * 5;
 }
 
-double Machine::InitializeBalances()
+double Machine::initializeBalances()
 {
 	// Maybe we can declare constants
 	double balance = initialDollars + (double)totalCoins(initialCoin) / 100;

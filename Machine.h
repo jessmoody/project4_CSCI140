@@ -52,7 +52,7 @@ public:
 	void setItem(string s, int n, Items OneProd);
 	void setMachineName(string s1, int n);
 	int totalCoins(Coins c);	// Calculate how many cents in the coins
-	double InitializeBalances();
+	double initializeBalances();
 	string getModel(){	return model;	}
 	string getMachineName() { return machineName; }
 	int findItem(string s);
