@@ -57,7 +57,7 @@ public:
 	string getModel(){	return model;	}
 	string getMachineName() { return machineName; }
 	int findItem(string s);
-	void outputItemInfo(string userInput);
+	void outputItemInfo(int index);
 	virtual void machineAccepts() = 0;
 	virtual bool acceptMoney(int index)
 	{

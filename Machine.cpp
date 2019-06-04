@@ -68,14 +68,13 @@ void Machine::setMachineName(string s1, int n)
 
 int Machine::totalCents(Coins c)
 {
-	return c.quarters * 25 + c.dimes * 10 + c.nickels * 5;
+	return c.quarters * QUARTER + c.dimes * DIME + c.nickels * NICKEL;
 }
 
 double Machine::initializeBalances()
 {
 	// Maybe we can declare constants
-	double balance = initialDollars + (double)totalCents(initialCoin) / 100;
-	//double balance = initialDollars + 0.25 * initialCoin.quarters + 0.10 * initialCoin.dimes + 0.05 * initialCoin.nickels;
+	double balance = initialDollars + (double)totalCents(initialCoin) / DOLLAR;
 	initialBalance = currentBalance = balance;
 	return balance;
 }
@@ -100,21 +99,12 @@ void Machine::machineAccepts()
 	cout << "This machine accepts..." << endl;
 }
 
-void Machine::outputItemInfo(string userInput)
+void Machine::outputItemInfo(int index)
 {
-	int index2;
-	index2 = findItem(userInput);
-	if (index2 != -1)
-	{
-		cout << "You selected \""
-			<< items[index2].description << "\"." << endl
-			<< "The cost of this item is " << items[index2].price
-			<< " cents." << endl;
-	}
-	else
-	{
-		cout << "Item not found" << endl;
-	}
+	cout << "You selected \""
+		<< items[index].description << "\"." << endl
+		<< "The cost of this item is " << items[index].price
+		<< " cents." << endl;
 }
 
 void Machine::printAvailableItems()
@@ -122,7 +112,7 @@ void Machine::printAvailableItems()
 	cout << "Available Items:" << endl;
 	for (int i = 0; i < numItems; i++)
 	{
-		if (items[i].currentQuantity != 0)		// *****Change 5/27*****
+		if (items[i].currentQuantity != 0)
 		{
 			cout << "    " << items[i].selection << " ";
 			std::cout << std::setfill(' ') << std::setw(3) << std::right
@@ -144,7 +134,7 @@ void Machine::printMachine()
 	{
 		cout << "Selection: " << items[i].selection << endl
 			<< "Item ID: " << items[i].itemID << endl
-			<< "Quantity: " << items[i].currentQuantity << endl		// *****Change 5/27*****
+			<< "Quantity: " << items[i].currentQuantity << endl
 			<< "Description: " << items[i].description << endl
 			<< "Price: " << items[i].price << endl << endl;
 	}
@@ -155,7 +145,7 @@ void Machine::printMachine()
 Machine::~Machine()
 {
 	ofstream outM;
-	outM.open("reports.txt", ios::app);	// TO be closed
+	outM.open("reports.txt", ios::app);
 	if (!outM)
 	{
 		cout << "Error: Cannot open reports.txt" << endl;
@@ -164,12 +154,12 @@ Machine::~Machine()
 
 	outM << "Machine: " << machineName << endl;
 	outM << fixed << setprecision(2);
-	outM << "Initial balance: $" << initialBalance /* << calcBalance(initialCoin, initialDollars)*/
+	outM << "Initial balance: $" << initialBalance 
 		<< " (" << initialDollars << " $, " << initialCoin.quarters << " Q, "
 		<< initialCoin.dimes << " D, " << initialCoin.nickels << " N)" << endl;
 	outM << "Number of valid transactions: " << transactions << endl;
 	outM << "Total cost: $" << totalCost << endl;
-	outM << "Current balance: $" << currentBalance /*<< calcBalance(currentCoin, currentDollars)*/
+	outM << "Current balance: $" << currentBalance 
 		<< " (" << currentDollars << " $, " << currentCoin.quarters << " Q, "
 		<< currentCoin.dimes << " D, " << currentCoin.nickels << " N)" << endl;
 	outM << endl;

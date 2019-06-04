@@ -63,7 +63,7 @@ bool MachineD::acceptMoney(int index)
 			attempt++;
 		}
 
-		double priceDollar = (double)items[index].price / 100;
+		double priceDollar = (double)items[index].price / DOLLAR;
 		cout << "Your credit card was successfully charged for $"
 			<< priceDollar << "." << endl;
 
@@ -86,7 +86,7 @@ bool MachineD::validateCreditCard(string n)
 {
 	int size = n.length();
 
-	if (size > 19)	// Type cast to prevent overflow
+	if (size > 19)
 	{
 		return false;
 	}

@@ -34,7 +34,7 @@ void MachineSystem::readFile()
 	}
 	else
 	{
-		while (infile >> model/* && model != "100D"*/)
+		while (infile >> model)
 		{
 			infile >> numMachines;
 			
@@ -120,7 +120,7 @@ void MachineSystem::purchase()
 			itemIndex = pM[MachineIndex]->findItem(itemSelection);
 			if (itemIndex != -1)
 			{
-				pM[MachineIndex]->outputItemInfo(itemSelection);
+				pM[MachineIndex]->outputItemInfo(itemIndex);
 				bool successfulTransaction = pM[MachineIndex]->acceptMoney(itemIndex);
 				if (successfulTransaction)
 				{

@@ -59,21 +59,21 @@ bool MachineB::insertMoney(int coins, int& totalCoins)
 	}
 	while (coins != 0)
 	{
-		if (coins == 25)
+		if (coins == QUARTER)
 		{
 			input.quarters++;
 			//currentCoin.quarters += input.quarters;
 			currentCoin.quarters++;
 			totalCoins += coins;
 		}
-		else if (coins == 10)
+		else if (coins == DIME)
 		{
 			input.dimes++;
 			//currentCoin.dimes += input.dimes;
 			currentCoin.dimes++;
 			totalCoins += coins;
 		}
-		else if (coins == 5)
+		else if (coins == NICKEL)
 		{
 			input.nickels++;
 			//currentCoin.nickels += input.nickels;

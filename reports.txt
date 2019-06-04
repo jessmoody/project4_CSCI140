@@ -1,0 +1,79 @@
+Machine: 100A1
+Initial balance: $1.10 (0 $, 2 Q, 4 D, 4 N)
+Number of valid transactions: 2
+Total cost: $1.10
+Current balance: $2.20 (2 $, 0 Q, 1 D, 2 N)
+
+Machine inventory:
+Code        Id       Description            Initial     Current
+  1A      1034       candy bar                 5           4
+  1B      1000       chocolate chips          10          10
+  1C      1100       cookies                   1           1
+  1D      1123       brownie                  20          19
+  1E      1210       protein bar               5           5
+
+Machine: 100A2
+Initial balance: $6.50 (0 $, 20 Q, 10 D, 10 N)
+Number of valid transactions: 1
+Total cost: $1.00
+Current balance: $7.50 (2 $, 16 Q, 10 D, 10 N)
+
+Machine inventory:
+Code        Id       Description            Initial     Current
+  1A      2180       coke bottle              20          20
+  1B      1283       coke can 6 oz            20          20
+  1C      3629       diet coke bottle          5           5
+  1D      3649       12 oz orange juice        3           3
+  1E      4051       8 oz orange juice        15          15
+  1F      4211       apple juice               1           1
+  1G      5318       gatorade                  5           4
+
+Machine: 100B1
+Initial balance: $0.95 (0 $, 2 Q, 4 D, 1 N)
+Number of valid transactions: 1
+Total cost: $0.80
+Current balance: $1.75 (0 $, 6 Q, 2 D, 1 N)
+
+Machine inventory:
+Code        Id       Description            Initial     Current
+  1A      2180       coke bottle              10          10
+  1B      1283       coke can 6 oz            10          10
+  1C      3629       diet coke bottle          5           4
+
+Machine: 100C1
+Initial balance: $0.00 (0 $, 0 Q, 0 D, 0 N)
+Number of valid transactions: 0
+Total cost: $0.00
+Current balance: $0.00 (0 $, 0 Q, 0 D, 0 N)
+
+Machine inventory:
+Code        Id       Description            Initial     Current
+  1A      6774       ham sandwich              5           5
+  1B      6869       egg sandwich              3           3
+  1C      6879       tuna sandwich             2           2
+
+Machine: 100C2
+Initial balance: $0.00 (0 $, 0 Q, 0 D, 0 N)
+Number of valid transactions: 1
+Total cost: $3.00
+Current balance: $3.00 (0 $, 0 Q, 0 D, 0 N)
+
+Machine inventory:
+Code        Id       Description            Initial     Current
+  1A      6774       ham sandwich              2           1
+  1B      6869       egg sandwich              0           0
+  1C      6879       tuna sandwich             1           1
+  1D      7555       healthy salad            10          10
+
+Machine: 100D1
+Initial balance: $3.15 (0 $, 10 Q, 5 D, 3 N)
+Number of valid transactions: 0
+Total cost: $0.00
+Current balance: $3.15 (0 $, 10 Q, 5 D, 3 N)
+
+Machine inventory:
+Code        Id       Description            Initial     Current
+  1A      2180       coke bottle               5           5
+  1B      3649       12 oz orange juice        2           2
+  1C      4211       apple juice               3           3
+

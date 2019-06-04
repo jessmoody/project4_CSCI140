@@ -38,7 +38,7 @@ bool MachineA::insertMoney(int numberD, int& totalInput)
 	}
 	while (numberD != 0)
 	{
-		if (numberD == 100)
+		if (numberD == DOLLAR)
 		{
 			totalInput += numberD;
 		}
@@ -70,7 +70,7 @@ bool MachineA::transaction(int index, int totalInput, int purchase)
 		{
 			completePurchase(index, purchase, change_amount);
 			//
-			currentDollars += totalInput / 100;
+			currentDollars += totalInput / DOLLAR;
 			return true;
 		}
 	}
@@ -95,7 +95,7 @@ void MachineA::completePurchase(int index, int purchase, int change_amount)
 	currentCoin.quarters -= change.quarters;
 	currentCoin.dimes -= change.dimes;
 	currentCoin.nickels -= change.nickels;
-	double priceItems = (static_cast<double>(purchase) / 100);// total price of items being purchased
+	double priceItems = (static_cast<double>(purchase) / DOLLAR);// total price of items being purchased
 	totalCost += priceItems;
 	currentBalance += priceItems;
 

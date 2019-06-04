@@ -15,7 +15,7 @@ bool MachineC::validateCreditCard(string n)
 {
 	int size = n.length();
 
-	if (size > 19)	// Type cast to prevent overflow
+	if (size > 19)
 	{
 		return false;
 	}
@@ -90,8 +90,3 @@ bool MachineC::acceptMoney(int index)
 	return true;
 
 }
-//
-//double MachineC::calcBalance(Coins c, int dollars)
-//{
-//	return totalCost;
-//}

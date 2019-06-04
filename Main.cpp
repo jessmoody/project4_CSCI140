@@ -15,7 +15,7 @@ int main(void)
 	string code;
 	do
 	{
-		cout << "Please enter a startup code--> ";
+		cout << "Please enter a startup code --> ";
 		cin >> code;
 	} while (code != SECRET_CODE);
 
