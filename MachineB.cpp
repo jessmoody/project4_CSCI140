@@ -86,6 +86,37 @@ bool MachineB::insertMoney(int coins, int& totalCoins)
 	return true;
 }
 
+bool MachineB::transaction(int index, int totalInput, int purchase)
+{
+	bool valid;
+	int change_amount;
+	if (totalInput < purchase)
+	{
+		cout << "Insufficient amount! " << endl;
+		cout << "Your transaction cannot be processed. " << endl;
+		cout << "Please take back your dollar bill. " << endl;
+		return false;
+	}
+	cout << "You entered an amount of " << totalInput << " cents." << endl;
+	change_amount = totalInput - purchase;
+	cout << "Processing your purchase ..." << endl;
+
+	if (totalCents(currentCoin) >= change_amount)
+	{
+		valid = makeChange(change_amount, currentCoin, change);
+		if (valid)
+		{
+			completePurchase(index, purchase, change_amount);
+			//currentDollars += totalInput / 100;
+			return true;
+		}
+	}
+
+	insufficientChange();
+	return false;
+
+}
+
 void MachineB::insufficientChange()
 {
 	cout << "Insufficient changes! " << endl;

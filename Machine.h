@@ -81,7 +81,7 @@ public:
 	void printCoin(Coins c);
 	virtual bool insertMoney(int money, int& totalInput);
 	void completePurchase(int index, int purchase, int change_amount);
-	bool transaction(int index, int totalInput, int purchase);
+	virtual bool transaction(int index, int totalInput, int purchase);
 	virtual void insufficientChange();
 
 };
@@ -94,6 +94,7 @@ public:
 	virtual void machineAccepts();
 	virtual bool acceptMoney(int index);
 	virtual bool insertMoney(int money, int& totalInput);
+	virtual bool transaction(int index, int totalInput, int purchase);
 	virtual void insufficientChange();
 };
 
