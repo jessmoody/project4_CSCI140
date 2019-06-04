@@ -6,6 +6,7 @@
 using namespace std;
 
 const int NUMOFPROD = 23;   
+const string SECRET_CODE = "spring19";
 
 struct Items
 {

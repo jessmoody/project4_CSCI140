@@ -17,7 +17,7 @@ int main(void)
 	{
 		cout << "Please enter a startup code--> ";
 		cin >> code;
-	} while (code != "spring19");
+	} while (code != SECRET_CODE);
 
 	MachineSystem System;
 

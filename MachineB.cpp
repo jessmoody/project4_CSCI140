@@ -11,15 +11,45 @@ void MachineB::machineAccepts()
 	cout << "This machine accepts coins or one-dollar bills." << endl;
 }
 
-bool MachineB::acceptCoins(int index)
+
+bool MachineB::acceptMoney(int index)
 {
-	int purchase, change_amount, numberD;
+	int option;
+	cout << "Select an option (1- dollar bill and 2 - coins) --> ";
+	cin >> option;
+
+	int purchase, money = 0;
+	int totalInput = 0;
 	purchase = items[index].price;
-	bool valid;
-	int coins,
-		q = 0,
-		d = 0,
-		n = 0;
+
+	if (option == 1)
+	{
+		if (!MachineA::insertMoney(money, totalInput))
+		{
+			return false;
+		}
+		return (MachineA::transaction(index, totalInput, purchase));
+	}
+	else if (option == 2)
+	{
+		if (!insertMoney(money, totalInput))
+		{
+			return false;
+		}
+		return (transaction(index, totalInput, purchase));
+	}
+	else
+	{
+		cout << "This option is not support in this machine . \n";
+		return false;
+	}
+}
+
+bool MachineB::insertMoney(int coins, int& totalCoins)
+{
+	input.quarters = 0,
+	input.dimes = 0,
+	input.nickels = 0;
 	cout << "Please insert your coins: ";
 	cin >> coins;
 	if (coins == 0)
@@ -27,77 +57,39 @@ bool MachineB::acceptCoins(int index)
 		cout << "You choose to cancel your selection. \n";
 		return false;
 	}
-	int totalCoins = 0;
 	while (coins != 0)
 	{
-		if (coins == QUARTER)
+		if (coins == 25)
 		{
-			q++;
+			input.quarters++;
+			currentCoin.quarters += input.quarters;
 			totalCoins += coins;
 		}
-		else if (coins == DIME)
+		else if (coins == 10)
 		{
-			d++;
+			input.dimes++;
+			currentCoin.dimes += input.dimes;
+
 			totalCoins += coins;
 		}
-		else if (coins == NICKEL)
+		else if (coins == 5)
 		{
-			n++;
+			input.nickels++;
+			currentCoin.nickels += input.nickels;
 			totalCoins += coins;
 		}
 		cin >> coins;
 	}
-	cout << q << ", " << d << ", " << n << ", \n";
-	cout << "You inserted an amount of " << totalCoins << " cents. \n";
-	cout << "Processing your purchase ..." << endl;
-	change_amount = totalCoins - purchase;
-	cout << currentBalance << endl;
-	cout << change_amount << endl;
-	if (totalCents(currentCoin) >= change_amount)
-	{
-		valid = makeChange(change_amount, currentCoin, change);
-		if (valid)
-		{
-			// Update data in machine
-			transactions++;
-			items[index].currentQuantity--;
-			currentCoin.quarters -= change.quarters;
-			currentCoin.dimes -= change.dimes;
-			currentCoin.nickels -= change.nickels;
-			double priceItems = (static_cast<double>(purchase) / DOLLAR);// total price of items being purchased
-			totalCost += priceItems;
-			currentBalance += priceItems;
 
-			// Output
-			cout << "Your change of " << change_amount << " cents is given as: " << endl;
-			printCoin(change);
-			return true;
-		}
-
-
-		cout << "Insufficient change! " << endl;
-		cout << "Your transaction cannot be processed. " << endl;
-		cout << "Please take back your coins. " << endl;
-		return false;
-	}
+	return true;
 }
 
-bool MachineB::acceptMoney(int index)
+void MachineB::insufficientChange()
 {
-	int option;
-	cout << "Select an option (1- dollar bill and 2 - coins) --> ";
-	cin >> option;
-	if (option == 1)
-	{
-		return MachineA::acceptMoney(index);
-	}
-	else if (option == 2)
-	{
-		return acceptCoins(index);
-	}
-	else
-	{
-		cout << "This option is not support in this machine . \n";
-		return false;
-	}
+	cout << "Insufficient changes! " << endl;
+	cout << "Your transaction cannot be processed. " << endl;
+	cout << "Please take back your dollar bill. " << endl;
+	currentCoin.quarters -= input.quarters;
+	currentCoin.dimes -= input.dimes;
+	currentCoin.nickels -= input.nickels;
 }

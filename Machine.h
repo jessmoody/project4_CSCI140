@@ -79,17 +79,22 @@ public:
 	virtual bool acceptMoney(int index);
 	bool makeChange(int amount, Coins &machine, Coins &back);
 	void printCoin(Coins c);
+	virtual bool insertMoney(int money, int& totalInput);
+	void completePurchase(int index, int purchase, int change_amount);
+	bool transaction(int index, int totalInput, int purchase);
+	virtual void insufficientChange();
 
 };
 
 class MachineB : public MachineA
 {
-	
+	Coins input;
 public:
 	MachineB() { ; }
 	virtual void machineAccepts();
-	bool acceptCoins(int index);
 	virtual bool acceptMoney(int index);
+	virtual bool insertMoney(int money, int& totalInput);
+	virtual void insufficientChange();
 };
 
 class MachineC : public Machine

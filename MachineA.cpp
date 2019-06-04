@@ -14,10 +14,21 @@ void MachineA::machineAccepts()
 
 bool MachineA::acceptMoney(int index)
 {
-	int purchase, change_amount, numberD;
-	int totalInput;
+	int purchase, money = 0;
+	int totalInput = 0;
 	purchase = items[index].price;
-	bool valid;
+
+	if (!insertMoney(money, totalInput))
+	{
+		return false;
+	}
+
+	return (transaction(index, totalInput, purchase));
+
+}
+
+bool MachineA::insertMoney(int numberD, int& totalInput)
+{
 	cout << "Please insert your money --> ";
 	cin >> numberD;
 	if (numberD == 0)
@@ -25,12 +36,22 @@ bool MachineA::acceptMoney(int index)
 		cout << "You choose to cancel your selection. \n";
 		return false;
 	}
-	totalInput = numberD;
 	while (numberD != 0)
 	{
+		if (numberD == 100)
+		{
+			totalInput += numberD;
+		}
 		cin >> numberD;
-		totalInput += numberD;
 	}
+
+	return true;
+}
+
+bool MachineA::transaction(int index, int totalInput, int purchase)
+{
+	bool valid;
+	int change_amount;
 	if (totalInput < purchase)
 	{
 		cout << "Insufficient amount! " << endl;
@@ -40,38 +61,48 @@ bool MachineA::acceptMoney(int index)
 	}
 	change_amount = totalInput - purchase;
 	cout << "Processing your purchase ..." << endl;
-	cout << currentBalance << endl;
-	cout << change_amount << endl;
 
 	if (totalCents(currentCoin) >= change_amount)
 	{
 		valid = makeChange(change_amount, currentCoin, change);
 		if (valid)
 		{
-			// Update data in machine
-			transactions++;
-			items[index].currentQuantity--;
-			currentCoin.quarters -= change.quarters;
-			currentCoin.dimes -= change.dimes;
-			currentCoin.nickels -= change.nickels;
-			currentDollars += totalInput / DOLLAR;			
-			double priceDollar = (static_cast<double>(purchase) / DOLLAR);
-			totalCost += priceDollar;
-			currentBalance += priceDollar;
-
-			// Output
-			cout << "Your change of " << change_amount << " cents is given as: " << endl;
-			printCoin(change);
+			completePurchase(index, purchase, change_amount);
+			currentDollars += totalInput / 100;
 			return true;
 		}
 	}
+	else
+	{
+		insufficientChange();
+		return false;
+	}
+}
 
-	cout << "Insufficient change! " << endl;
+void MachineA::insufficientChange()
+{
+	cout << "Insufficient changes! " << endl;
 	cout << "Your transaction cannot be processed. " << endl;
 	cout << "Please take back your dollar bill. " << endl;
-	return false;
-
 }
+
+void MachineA::completePurchase(int index, int purchase, int change_amount)
+{
+	// Update data in machine
+	transactions++;
+	items[index].currentQuantity--;
+	currentCoin.quarters -= change.quarters;
+	currentCoin.dimes -= change.dimes;
+	currentCoin.nickels -= change.nickels;
+	double priceItems = (static_cast<double>(purchase) / 100);// total price of items being purchased
+	totalCost += priceItems;
+	currentBalance += priceItems;
+
+	// Output
+	cout << "Your change of " << change_amount << " cents is given as: " << endl;
+	printCoin(change);
+}
+
 
 bool MachineA::makeChange(int amount, Coins &machine, Coins &back)
 {

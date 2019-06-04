@@ -105,7 +105,7 @@ void MachineSystem::purchase()
 	string MachineSelection, itemSelection;
 	cout << "Select a machine--> ";
 	cin >> MachineSelection;
-	while (MachineSelection != "spring19")
+	while (MachineSelection != SECRET_CODE)
 	{
 		MachineIndex = findMachine(MachineSelection);
 		if (MachineIndex != -1)
