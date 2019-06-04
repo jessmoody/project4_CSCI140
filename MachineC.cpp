@@ -90,8 +90,8 @@ bool MachineC::acceptMoney(int index)
 	return true;
 
 }
-
-double MachineC::calcBalance(Coins c, int dollars)
-{
-	return totalCost;
-}
+//
+//double MachineC::calcBalance(Coins c, int dollars)
+//{
+//	return totalCost;
+//}

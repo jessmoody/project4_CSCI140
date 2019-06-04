@@ -15,7 +15,7 @@ void MachineB::machineAccepts()
 bool MachineB::acceptMoney(int index)
 {
 	int option;
-	cout << "Select an option (1- dollar bill and 2 - coins) --> ";
+	cout << "Select an option (1 - dollar bill and 2 - coins) --> ";
 	cin >> option;
 
 	int purchase, money = 0;
@@ -62,20 +62,22 @@ bool MachineB::insertMoney(int coins, int& totalCoins)
 		if (coins == 25)
 		{
 			input.quarters++;
-			currentCoin.quarters += input.quarters;
+			//currentCoin.quarters += input.quarters;
+			currentCoin.quarters++;
 			totalCoins += coins;
 		}
 		else if (coins == 10)
 		{
 			input.dimes++;
-			currentCoin.dimes += input.dimes;
-
+			//currentCoin.dimes += input.dimes;
+			currentCoin.dimes++;
 			totalCoins += coins;
 		}
 		else if (coins == 5)
 		{
 			input.nickels++;
-			currentCoin.nickels += input.nickels;
+			//currentCoin.nickels += input.nickels;
+			currentCoin.nickels++;
 			totalCoins += coins;
 		}
 		cin >> coins;

@@ -34,7 +34,7 @@ void MachineSystem::readFile()
 	}
 	else
 	{
-		while (infile >> model && model != "100D")
+		while (infile >> model/* && model != "100D"*/)
 		{
 			infile >> numMachines;
 			
@@ -54,10 +54,13 @@ void MachineSystem::readFile()
 				{
 					pM[count] = new MachineC;
 				}
+				else if (model == "100D")
+				{
+					pM[count] = new MachineD;
+				}
 				else
 				{
-					pM[count] = new Machine;
-
+					continue;
 				}
 
 				pM[count]->setModel(model);
@@ -118,7 +121,11 @@ void MachineSystem::purchase()
 			if (itemIndex != -1)
 			{
 				pM[MachineIndex]->outputItemInfo(itemSelection);
-				pM[MachineIndex]->acceptMoney(itemIndex);
+				bool successfulTransaction = pM[MachineIndex]->acceptMoney(itemIndex);
+				if (successfulTransaction)
+				{
+					cout << "Thank you! Please take your item." << endl;
+				}
 			}
 			else
 			{

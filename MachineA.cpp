@@ -29,7 +29,7 @@ bool MachineA::acceptMoney(int index)
 
 bool MachineA::insertMoney(int numberD, int& totalInput)
 {
-	cout << "Please insert your money --> ";
+	cout << "Insert your money --> ";
 	cin >> numberD;
 	if (numberD == 0)
 	{
@@ -59,6 +59,7 @@ bool MachineA::transaction(int index, int totalInput, int purchase)
 		cout << "Please take back your dollar bill. " << endl;
 		return false;
 	}
+	cout << "You entered an amount of " << totalInput << " cents." << endl;
 	change_amount = totalInput - purchase;
 	cout << "Processing your purchase ..." << endl;
 
@@ -68,15 +69,15 @@ bool MachineA::transaction(int index, int totalInput, int purchase)
 		if (valid)
 		{
 			completePurchase(index, purchase, change_amount);
+			//
 			currentDollars += totalInput / 100;
 			return true;
 		}
 	}
-	else
-	{
-		insufficientChange();
-		return false;
-	}
+	
+	insufficientChange();
+	return false;
+
 }
 
 void MachineA::insufficientChange()
@@ -149,7 +150,7 @@ bool MachineA::makeChange(int amount, Coins &machine, Coins &back)
 
 void MachineA::printCoin(Coins c)
 {
-	cout << "    Quarters:   " << c.quarters << endl;
-	cout << "    Dimes:      " << c.dimes << endl;
-	cout << "    Nickels:    " << c.nickels << endl << endl;
+	cout << "    quarter(s):   " << c.quarters << endl;
+	cout << "    dime(s):      " << c.dimes << endl;
+	cout << "    nickel(s):    " << c.nickels << endl;
 }

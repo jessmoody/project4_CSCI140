@@ -155,10 +155,10 @@ void Machine::printMachine()
 Machine::~Machine()
 {
 	ofstream outM;
-	outM.open("machinesOutput.txt", ios::app);	// TO be closed
+	outM.open("reports.txt", ios::app);	// TO be closed
 	if (!outM)
 	{
-		cout << "Error: Cannot open machinesOutput.txt" << endl;
+		cout << "Error: Cannot open reports.txt" << endl;
 		exit(3);
 	}
 

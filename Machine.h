@@ -58,7 +58,7 @@ public:
 	string getMachineName() { return machineName; }
 	int findItem(string s);
 	void outputItemInfo(string userInput);
-	virtual void machineAccepts();
+	virtual void machineAccepts() = 0;
 	virtual bool acceptMoney(int index)
 	{
 		cout << "acceptMoney in Machine class" << endl;
@@ -105,7 +105,17 @@ public:
 	bool validateCreditCard(string n);
 	virtual void machineAccepts();
 	virtual bool acceptMoney(int index); 
-	double calcBalance(Coins c, int dollars);
+	//double calcBalance(Coins c, int dollars);
+};
+
+class MachineD :public MachineB
+{
+public:
+	MachineD() { ; }
+	bool validateCreditCard(string n);
+	virtual void machineAccepts();
+	virtual bool acceptMoney(int index);
+	//double calcBalance(Coins c, int dollars);
 };
 
 class MachineSystem
